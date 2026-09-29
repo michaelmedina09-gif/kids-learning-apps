@@ -416,6 +416,58 @@ td.std{font-size:12px;color:var(--muted)}
 .wallet{display:inline-flex;align-items:center;gap:5px;font:800 15px Lexend,sans-serif;margin-right:6px;padding:6px 12px;border-radius:99px;background:#ffe27a;color:#3d2c2e}
 .wallet svg{width:18px;height:18px}
 @keyframes spinme{to{transform:rotate(360deg)}}.spinme{animation:spinme 1.6s linear infinite;transform-box:fill-box;transform-origin:center}
+
+/* ---- QA fixes ---- */
+.toast{pointer-events:none;width:max-content}
+@media (max-width:640px){.toast{bottom:auto;top:calc(10px + env(safe-area-inset-top,0px))}}
+.iconbtn.sm{width:44px;height:44px;min-width:44px;flex:none;border-radius:13px}
+.iconbtn.sm .ic,.iconbtn.sm svg{width:22px;height:22px}
+.card-h .saybtn{margin-left:auto;align-self:center}
+.shophint,.goalsum{display:flex;align-items:center;gap:10px}
+.shophint .saybtn,.goalsum .saybtn{margin:0}
+.scenestrip{display:flex;flex-direction:column;gap:6px;padding:0 14px}
+.sslabel{font-weight:700;font-size:14px;color:var(--x-text)}
+.ssview{position:relative;width:100%;border-radius:14px;overflow:hidden;border:2px solid var(--x-line)}
+.ssview>svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+@media (max-width:860px){
+ .stagebox{position:sticky;top:0;z-index:6;box-shadow:0 10px 22px rgba(0,0,0,.28)}
+ .stagebox.tabscene .stage,.stagebox.tabscene .petpick,.stagebox.tabscene>.linkbtn{display:none}
+ .stagebox.tabscene{padding-top:12px}
+ .stagebox.tabwear .scenestrip{display:none}
+}
+@media (max-width:640px){
+ .stagebox .stage{height:190px}
+ .stagebox .stagepet{transform:translateX(-50%) scale(.68);transform-origin:50% 100%;bottom:6px}
+ .petpick button{min-width:64px;padding:4px 6px}
+}
+.pkrow .pk{min-height:44px;padding:8px 14px}
+.dtabs button{min-height:44px}
+.linkbtn{min-height:44px}
+.learn-h>div{min-width:0}
+.learn-h h2{overflow-wrap:break-word;hyphens:auto;min-width:0}
+.learn-h .iconbtn{flex:none;min-width:44px;min-height:44px}
+@media (max-width:640px){.learn-h h2{font-size:21px;line-height:1.15}.learn-h{gap:8px}.learn-h>.kw{width:52px;height:52px;flex:none}.learn{padding:16px}.learn-h .iconbtn{width:48px;height:48px}}
+.tier{font:700 11px/1 Lexend,sans-serif;padding:4px 8px}
+.tier.t1{background:#1d5fcf}
+.tier.t2{background:#6a2fd6}
+.tier.t3{background:linear-gradient(90deg,#a8540a,#b5156f)}
+.tlock{font-size:13px}
+.tprog{font-size:12px}
+.mini2.new{background:#d4193f}
+.pkrow .pk.on{background:var(--pk,#6d45e0);border-color:var(--pk,#6d45e0)}
+
+:root{--muted:#56656d}
+.mini2.have{color:var(--teal-d)}
+.dtabs button.on{background:var(--teal-d);border-color:var(--teal-d)}
+.nlform .tbtn,.nlform .presets .tbtn,.padbar .tbtn{min-height:44px}
+.nlform input{min-height:44px;width:72px}
+@media (max-width:480px){
+ .kb{gap:6px}
+ .kb .kr{gap:2px}
+ .qcard .kb{width:calc(100% + 12px);margin-inline:-6px}
+ .kb button{height:54px;border-radius:9px;font-size:22px}
+ .qcard{padding-left:10px;padding-right:10px}
+}
 </style>
 
 <div id="app"></div>
@@ -429,6 +481,7 @@ td.std{font-size:12px;color:var(--muted)}
 const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
 const rnd=(a,b)=>Math.floor(Math.random()*(b-a+1))+a;
 const pick=a=>a[Math.floor(Math.random()*a.length)];
+const pl=(n,w,ws)=>n+' '+(+n===1?w:(ws||w+'s'));
 function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
 const gcd=(a,b)=>{a=Math.abs(a);b=Math.abs(b);while(b){[a,b]=[b,a%b]}return a};
 const lcm=(a,b)=>a/gcd(a,b)*b;
@@ -694,7 +747,7 @@ function g_geo(L){
 function g_word(L){
  if(L===1){const bags=rnd(3,9),each=rnd(4,9),eat=rnd(5,bags*each-5);return{prompt:`The rescue center has ${bags} bags of carrots. Each bag holds ${each} carrots. The bunnies eat ${eat}. How many carrots are left?`,type:'num',answer:bags*each-eat,hint:`Step 1: how many carrots in all? Step 2: take away what they ate.`,explain:`Step 1: ${bags} × ${each} = ${bags*each} carrots.<br>Step 2: ${bags*each} − ${eat} = ${bags*each-eat} carrots left.`}}
  if(L===2){if(Math.random()<.5){const days=rnd(3,6),per=rnd(12,40);return{prompt:`A manatee ate ${days*per} heads of lettuce in ${days} days. It ate the same amount each day. How many did it eat each day?`,type:'num',answer:per,hint:`Split the total into ${days} equal days.`,explain:`${days*per} ÷ ${days} = ${per} heads of lettuce each day.`}}
-  const n=rnd(20,80),k=rnd(4,9),t=Math.ceil(n/k);return{prompt:`There are ${n} baby turtles. Each tank holds ${k} turtles. How many tanks are needed so every turtle has a spot?`,type:'num',answer:t,hint:`Divide, then think: what happens to the turtles left over?`,explain:`${n} ÷ ${k} = ${Math.floor(n/k)}${n%k?` with ${n%k} left over. Those ${n%k} turtles still need a tank, so you need ${t} tanks.`:`, so you need exactly ${t} tanks.`}`}}
+  const n=rnd(20,80),k=rnd(4,9),t=Math.ceil(n/k);return{prompt:`There are ${n} baby turtles. Each tank holds ${k} turtles. How many tanks are needed so every turtle has a spot?`,type:'num',answer:t,hint:`Divide, then think: what happens to the turtles left over?`,explain:`${n} ÷ ${k} = ${Math.floor(n/k)}${n%k?` with ${n%k} left over. ${n%k===1?'That 1 turtle still needs':`Those ${n%k} turtles still need`} a tank, so you need ${t} tanks.`:`, so you need exactly ${t} tanks.`}`}}
  if(L===3){const p=rnd(215,899),q=rnd(2,4),cost=p*q,pay=Math.ceil((cost+1)/1000)*1000;return{prompt:`A bag of turtle food costs ${money(p)}. You buy ${q} bags and pay with $${pay/100}. How much change do you get?`,type:'num',pre:'$',answer:(pay-cost)/100,hint:`First find the cost of ${q} bags. Then subtract from $${pay/100}.`,explain:`Cost: ${q} × ${money(p)} = ${money(cost)}.<br>Change: $${pay/100}.00 − ${money(cost)} = ${money(pay-cost)}.`}}
  const P=[[1,2],[1,3],[2,3],[1,4],[3,4],[1,6],[5,6],[1,8],[3,8],[5,8]];
  if(L===4){let a,b,c,d;const add=Math.random()<.5;do{[a,b]=pick(P);[c,d]=pick(P)}while(lcm(b,d)>24||(b===d&&a===c)||(add?a*d+c*b>=b*d:a*d<=c*b));const Ld=lcm(b,d),A=a*Ld/b,C=c*Ld/d,r=add?A+C:A-C;
@@ -819,7 +872,7 @@ const LS='critter-cove-v1';
 let S=null,DB=null,saveT=null,saving=Promise.resolve(),screen='boot',RUN=null,A=null,QW=null;
 function newState(name){const skills={};ALL.forEach(s=>skills[s.id]={level:3,placed:null,recent:[],hist:[],since:0,seen:0,correct:0});skills.facts.level=2;
  return{v:1,name,created:Date.now(),updated:Date.now(),skills,placement:{math:false,spell:false,write:false,at:null},hearts:0,rescueHearts:0,current:null,choices:null,rescued:[],streak:{n:0,last:null},days:{},missed:{},writing:[],sound:true,best:{sprint:0},qwIdx:0,outfit:{},scene:{bg:'sunset',decor:['umbrella']},stats:{},guide:[],quiz:[],owned:[],newItems:[]}}
-function migrate(s){if(!s||!s.skills||s.reset)return null;s.outfit=s.outfit||{};s.scene=s.scene||{bg:'sunset',decor:['umbrella']};s.stats=s.stats||{};s.guide=s.guide||[];s.quiz=s.quiz||[];s.owned=s.owned||[];s.newItems=s.newItems||[];if(s.current&&!CRITTERS[s.current])s.current=OLDIDS[s.current]||'owl';(s.rescued||[]).forEach(r=>{if(!CRITTERS[r.id])r.id=OLDIDS[r.id]||'owl'});if(s.choices&&s.choices.some(i=>!CRITTERS[i]))s.choices=null;ALL.forEach(x=>{if(!s.skills[x.id])s.skills[x.id]={level:3,placed:null,recent:[],hist:[],since:0,seen:0,correct:0}});s.missed=s.missed||{};s.writing=s.writing||[];s.days=s.days||{};s.best=s.best||{sprint:0};s.rescued=s.rescued||[];s.streak=s.streak||{n:0,last:null};if(s.sound===undefined)s.sound=true;return s}
+function migrate(s){if(!s||!s.skills||s.reset)return null;s.outfit=s.outfit||{};s.scene=s.scene||{bg:'sunset',decor:['umbrella']};if(!Array.isArray(s.scene.decor))s.scene.decor=[];if(!s.scene.bg)s.scene.bg='sunset';s.placement=s.placement||{math:false,spell:false,write:false,at:null};s.stats=s.stats||{};s.guide=s.guide||[];s.quiz=s.quiz||[];s.owned=s.owned||[];s.newItems=s.newItems||[];if(s.current&&!CRITTERS[s.current])s.current=OLDIDS[s.current]||'owl';(s.rescued||[]).forEach(r=>{if(!CRITTERS[r.id])r.id=OLDIDS[r.id]||'owl'});if(s.choices&&s.choices.some(i=>!CRITTERS[i]))s.choices=null;ALL.forEach(x=>{if(!s.skills[x.id])s.skills[x.id]={level:3,placed:null,recent:[],hist:[],since:0,seen:0,correct:0}});s.missed=s.missed||{};s.writing=s.writing||[];s.days=s.days||{};s.best=s.best||{sprint:0};s.rescued=s.rescued||[];s.streak=s.streak||{n:0,last:null};if(s.sound===undefined)s.sound=true;return s}
 function loadLocal(){try{const r=localStorage.getItem(LS);return r?migrate(JSON.parse(r)):null}catch(e){return null}}
 function save(){if(!S)return;S.updated=Date.now();try{localStorage.setItem(LS,JSON.stringify(S))}catch(e){}clearTimeout(saveT);saveT=setTimeout(flush,1200)}
 function flush(){if(!DB||!S)return;const data=JSON.parse(JSON.stringify(S));saving=saving.then(()=>DB.doc('cove/state').set(data)).catch(e=>{console.warn('save failed',e&&e.code);if(e&&(e.code==='invalid_argument'||e.code==='revoked'||e.code==='not_granted'))DB=null})}
@@ -893,7 +946,8 @@ function stairPlanner(spec){let i=0,st=null,count=0;const total=spec.reduce((a,s
  return{total,pos:()=>count,next(){if(i>=spec.length)return null;if(!st)st={L:3,step:0,best:0};const id=spec[i].id;return mk(id,st.L)},
   result(ok){count++;const sp=spec[i];if(ok)st.best=Math.max(st.best,st.L);st.step++;if(st.step>=sp.steps){const s=S.skills[sp.id],lvl=Math.max(1,st.best);s.level=lvl;s.placed=lvl;s.hist=[];s.since=0;st=null;i++}else st.L=ok?Math.min(5,st.L+1):Math.max(1,st.L-1)}}}
 function listPlanner(list){let i=0;return{total:list.length,pos:()=>i-(RUN&&RUN.q&&!RUN.locked?1:0),next(){if(i>=list.length)return null;const it=list[i++];const id=typeof it==='string'?it:it.skill;return mk(id,S.skills[id].level,it.word)},result(){}}}
-function mk(id,L,word){const q=GEN[id](L,word);q.skill=id;q.level=L;return q}
+const RECENTQ=[];const qKey=q=>String(q.prompt||'')+'|'+String(q.fig||'')+'|'+String(q.type==='mc'?((q.choices||[]).find(c=>c.ok)||{}).h:q.answer);
+function mk(id,L,word){const last=RECENTQ[RECENTQ.length-1];let q=null,alt=null,c;for(let t=0;t<12;t++){c=GEN[id](L,word);c.skill=id;c.level=L;const k=qKey(c);if(word||!RECENTQ.includes(k)){q=c;break}if(!alt&&k!==last)alt=c}q=q||alt||c;RECENTQ.push(qKey(q));if(RECENTQ.length>6)RECENTQ.shift();return q}
 function needScore(id){const s=S.skills[id],a=acc(id);return(5-s.level)+(1-(a===null?.6:a))*3+Math.random()*.8}
 function planMath(){const ids=MATH_IDS.filter(x=>x!=='facts').map(id=>({id,w:needScore(id)})).sort((a,b)=>b.w-a.w).map(x=>x.id);const f=ids.slice(0,3),o=shuffle(ids.slice(3));return[f[0],f[1],f[2],o[0],f[0],f[1],o[1],f[2],f[0],o[2]]}
 function planSpell(){const rev=Object.entries(S.missed).sort((a,b)=>b[1].miss-a[1].miss).slice(0,3).map(([w])=>({skill:'spell',word:w}));const sp=[...rev];while(sp.length<6)sp.push('spell');return[sp[0],sp[1],'homo',sp[2],sp[3],sp[4],'homo',sp[5]]}
@@ -902,7 +956,8 @@ function startCheck(area){const spec=area==='math'?MATH_IDS.map(id=>({id,steps:2
  const nm=CHECKS.find(x=>x.id===area).name;RUN={mode:'placement',area,title:nm,planner:stairPlanner(spec),results:[],used:new Set(),earned:0,ups:[],lastT:Date.now(),after:area==='write'?startQuickWrite:null};nextQ()}
 function startStation(st){if(st==='sprint')return startSprint();const title=STATIONS.find(x=>x.id===st).name;const plan=st==='math'?planMath():st==='spell'?planSpell():planWrite();
  RUN={mode:'practice',station:st,title,planner:listPlanner(plan),results:[],used:new Set(),earned:0,ups:[],lastT:Date.now(),after:st==='write'?startQuickWrite:null};nextQ()}
-function nextQ(){const q=RUN.planner.next();if(!q)return finishSession();padReset();RUN.q=q;RUN.tries=0;RUN.locked=false;A={buf:'',fr:{w:'',n:'',d:''},focus:'n'};renderQ();if(q.type==='spell')setTimeout(()=>say([q.answer,q.sentPlain,q.answer]),350)}
+function qLater(ms){const r=RUN,q=RUN&&RUN.q;setTimeout(()=>{if(RUN&&RUN===r&&RUN.q===q&&(screen==='q'))nextQ()},ms)}
+function nextQ(){if(!RUN||!RUN.planner)return;RUN.idk=false;const q=RUN.planner.next();if(!q)return finishSession();padReset();RUN.q=q;RUN.tries=0;RUN.locked=false;A={buf:'',fr:{w:'',n:'',d:''},focus:'n'};renderQ();if(q.type==='spell')setTimeout(()=>say([q.answer,q.sentPlain,q.answer]),350)}
 function qbar(title,pct){return`<header class="qbar"><button class="iconbtn" data-act="quit" aria-label="Leave and go back to the Cove">${ICON.x}</button><div><div class="qt">${esc(title)}</div>${pct===null?'':`<div class="qprog"><i style="width:${pct}%"></i></div>`}</div><span class="chip">${ICON.heart}<b id="hc">${S.hearts}</b></span></header>`}
 function keypad(dot,noCheck){const ks=['7','8','9','4','5','6','1','2','3',dot?'.':'','0','del'];return`<div class="keypad">${ks.map(k=>k===''?'<button class="blankkey" tabindex="-1" aria-hidden="true"></button>':`<button data-act="key" data-k="${k}" aria-label="${k==='del'?'Delete':k}">${k==='del'?'⌫':k}</button>`).join('')}${noCheck?'':'<button class="chk" data-act="check">Check</button>'}</div>`}
 function qwerty(){const rows=['qwertyuiop','asdfghjkl','zxcvbnm'];return`<div class="kb">${rows.map((r,i)=>`<div class="kr">${[...r].map(ch=>`<button data-act="key" data-k="${ch}">${ch}</button>`).join('')}${i===2?'<button class="wide" data-act="key" data-k="del" aria-label="Delete">⌫</button>':''}</div>`).join('')}<div class="kr"><button class="wide" data-act="key" data-k="'" aria-label="Apostrophe">’</button><button class="wide go" data-act="check">Check</button></div></div>`}
@@ -935,17 +990,17 @@ function answerHTML(q){if(q.type==='num')return(q.pre||'')+(q.pre==='$'?(+q.answ
 function showFb(kind,html){const f=$('#fb');if(!f)return;f.className='fb '+kind;f.innerHTML=html;f.hidden=false;if(kind==='teach'||kind==='warn')f.scrollIntoView({behavior:REDUCED?'auto':'smooth',block:'nearest'})}
 const PRAISE=['Awesome!','You got it!','Pawsome!','Great thinking!','Super!','Nailed it!','Excellent!','Yes!'];
 function buddyJump(){const b=$('#buddy .kw');if(b){b.classList.remove('jump');void b.offsetWidth;b.classList.add('jump')}}
-function answer(ok){if(RUN.locked)return;const q=RUN.q;addTime();RUN.missed=RUN.missed||[];if(RUN.mode==='bonus'){RUN.locked=true;RUN.bonusN=(RUN.bonusN||0)+1;if(ok){RUN.bonusOk=(RUN.bonusOk||0)+1;gain(1);bump('bonus');RUN.earned++;const hc=$('#hc');if(hc)hc.textContent=S.hearts;sfx.good();buddyJump();burst();showFb('good',`<b>You remembered! That’s right!</b><span class="plus">+1 ${ICON.heart}</span>`);say(['You remembered!',250,'That is right!']);save();setTimeout(nextQ,1400)}else showMiss(q);return}
- if(RUN.mode==='placement'){RUN.locked=true;RUN.planner.result(ok);RUN.results.push({skill:q.skill,ok});const hh=ok?2:1;gain(hh);RUN.earned+=hh;const h=$('#hc');if(h)h.textContent=S.hearts;save();if(ok){sfx.good();buddyJump();const r=$('.qcard').getBoundingClientRect();burst(r.left+r.width/2,r.top+120,26);showFb('good',`<b>${pick(PRAISE)} That’s right!</b><span class="plus">+2 ${ICON.heart}</span>`);setTimeout(nextQ,1100)}else{RUN.missed.push(q);showMiss(q)}return}
+function answer(ok){if(!RUN||RUN.locked||!RUN.q)return;const q=RUN.q;addTime();RUN.missed=RUN.missed||[];if(RUN.mode==='bonus'){RUN.locked=true;RUN.bonusN=(RUN.bonusN||0)+1;if(ok){RUN.bonusOk=(RUN.bonusOk||0)+1;gain(1);bump('bonus');RUN.earned++;const hc=$('#hc');if(hc)hc.textContent=S.hearts;sfx.good();buddyJump();burst();showFb('good',`<b>You remembered! That’s right!</b><span class="plus">+1 ${ICON.heart}</span>`);say(['You remembered!',250,'That is right!']);save();qLater(1400)}else showMiss(q);return}
+ if(RUN.mode==='placement'){RUN.locked=true;RUN.planner.result(ok);RUN.results.push({skill:q.skill,ok});const hh=ok?2:1;gain(hh);RUN.earned+=hh;const h=$('#hc');if(h)h.textContent=S.hearts;save();if(ok){sfx.good();buddyJump();const r=$('.qcard').getBoundingClientRect();burst(r.left+r.width/2,r.top+120,26);showFb('good',`<b>${pick(PRAISE)} That’s right!</b><span class="plus">+2 ${ICON.heart}</span>`);qLater(1100)}else{RUN.missed.push(q);showMiss(q)}return}
  RUN.tries++;
- if(ok){RUN.locked=true;const first=RUN.tries===1,h=first?2:1;gain(h);RUN.earned+=h;finalize(first);sfx.good();buddyJump();const r=$('.qcard').getBoundingClientRect();burst(r.left+r.width/2,r.top+120,first?26:12);$('#hc').textContent=S.hearts;showFb('good',`<b>${pick(PRAISE)} That’s right!</b><span class="plus">+${h} ${ICON.heart}</span>`);setTimeout(nextQ,1050)}
+ if(ok){RUN.locked=true;const first=RUN.tries===1,h=first?2:1;gain(h);RUN.earned+=h;finalize(first);sfx.good();buddyJump();const r=$('.qcard').getBoundingClientRect();burst(r.left+r.width/2,r.top+120,first?26:12);$('#hc').textContent=S.hearts;showFb('good',`<b>${pick(PRAISE)} That’s right!</b><span class="plus">+${h} ${ICON.heart}</span>`);qLater(1050)}
  else if(RUN.tries===1){sfx.bad();showFb('warn',`<b>Not quite. Try again!</b><div>${q.hint||'Take another look.'}</div>`);clearInput()}
  else{RUN.locked=true;finalize(false);sfx.bad();let extra='';if(q.type==='spell'&&RUN.lastTyped)extra=`<div>You wrote: <b>${esc(RUN.lastTyped)}</b><br>Correct: <b style="font-size:26px;letter-spacing:.06em">${spellMark(RUN.lastTyped,q.answer)}</b> <span class="muted">(highlighted letters are the tricky part)</span></div>`;
   showFb('teach',`<b>Here’s how:</b>${extra}<div class="exp">${q.explain}</div>${q.type==='spell'?'':`<div>Answer: <b>${answerHTML(q)}</b></div>`}<button class="btn teal" data-act="next">Got it ${ICON.arrow}</button>`);$('.choice.right')}}
 function finalize(firstOk){const q=RUN.q;if(!firstOk&&RUN.missed)RUN.missed.push(q);RUN.results.push({skill:q.skill,ok:firstOk});const ch=record(q.skill,firstOk);if(firstOk){bump('correct');bump(SK[q.skill].area)}if(ch==='up')bump('levelups');dayAdd(q.skill,firstOk);if(q.word)spellTrack(q.word,firstOk);if(ch==='up'){RUN.ups.push(q.skill);sfx.level();toast(`Level up! ${SK[q.skill].kid}: ${LV[S.skills[q.skill].level]}`)}save()}
 function finishSession(){if(RUN.mode==='bonus'){RUN.mode=RUN.mode0;RUN.title=RUN.title0}if(RUN.missed&&RUN.missed.length&&!RUN.bonusDone)return offerBonus();if(RUN.after&&!RUN.afterDone){RUN.afterDone=true;return RUN.after()}
  if(RUN.mode==='placement'){S.placement[RUN.area]=true;if(placedAll())S.placement.at=S.placement.at||Date.now()}
- else if(RUN.station){if(RUN.results.length>=4&&RUN.results.every(r=>r.ok))bump('perfect');const d=day();d.done[RUN.station]=true;gain(5);RUN.earned+=5;if(STATIONS.every(x=>d.done[x.id])&&!d.complete){d.complete=true;bumpStreak();gain(10);RUN.earned+=10;RUN.missionDone=true}}
+ else if(RUN.station&&RUN.station!=='bonus'){if(RUN.results.length>=4&&RUN.results.every(r=>r.ok))bump('perfect');const d=day();d.done[RUN.station]=true;gain(5);RUN.earned+=5;if(STATIONS.every(x=>d.done[x.id])&&!d.complete){d.complete=true;bumpStreak();gain(10);RUN.earned+=10;RUN.missionDone=true}}
  save();renderSummary()}
 function renderSummary(){screen='summary';const r=RUN.results,n=r.length,c=r.filter(x=>x.ok).length,d=day();let body;
  if(RUN.mode==='placement'){const all=placedAll();const areaIds=RUN.area==='math'?MATH_IDS:RUN.area==='spell'?['spell','homo']:WRITE_IDS;
@@ -968,10 +1023,10 @@ function startSprint(){screen='sprint-intro';RUN={mode:'sprint',station:'sprint'
 function sprintGo(){screen='sprint';RUN.end=Date.now()+60000;RUN.lastT=Date.now();RUN.q=mk('facts',S.skills.facts.level);RUN.locked=false;A={buf:''};
  app.innerHTML=`<div class="qwrap">${qbar('Fact Sprint',null)}<section class="box qcard"><div class="timer"><i id="tbar" style="width:100%"></i></div><div class="sprint-score">${ICON.bolt} <b id="sscore">0</b> correct</div><div class="prompt big" id="sq">${RUN.q.prompt}</div><div class="ans"><div class="numrow"><div class="numdisp" id="disp"></div></div>${keypad(false,true)}</div></section><div class="buddy" aria-hidden="true" id="buddy">${spr(S.current,'md')}</div></div>`;drawAll();updateInput();requestAnimationFrame(sprintTick)}
 function sprintTick(){if(screen!=='sprint'||!RUN||RUN.mode!=='sprint')return;const left=RUN.end-Date.now();const b=$('#tbar');if(b)b.style.width=Math.max(0,left/600)+'%';if(left<=0)return sprintEnd();requestAnimationFrame(sprintTick)}
-function sprintNextQ(){RUN.q=mk('facts',S.skills.facts.level);A.buf='';$('#sq').innerHTML=RUN.q.prompt;const d=$('#disp');d.className='numdisp';updateInput()}
-function sprintCheck(){const s=String(RUN.q.answer);if(A.buf.length<s.length)return;const ok=A.buf===s,d=$('#disp');RUN.n++;RUN.results.push({skill:'facts',ok});const sk=S.skills.facts;sk.seen++;if(ok)sk.correct++;sk.recent.push(ok?1:0);if(sk.recent.length>20)sk.recent.shift();dayAdd('facts',ok);addTime();
- if(ok){bump('correct');bump('math');RUN.score++;gain(1);RUN.earned++;$('#sscore').textContent=RUN.score;$('#hc').textContent=S.hearts;d.classList.add('ok');tone([880,1175],.05);buddyJump();setTimeout(sprintNextQ,160)}
- else{RUN.locked=true;d.classList.add('bad');d.textContent=`${RUN.q.prompt.replace('?','')}${s}`;sfx.bad();setTimeout(()=>{RUN.locked=false;sprintNextQ()},900)}}
+function sprintNextQ(){if(screen!=='sprint'||!RUN||RUN.mode!=='sprint')return;RUN.locked=false;RUN.q=mk('facts',S.skills.facts.level);A.buf='';$('#sq').innerHTML=RUN.q.prompt;const d=$('#disp');d.className='numdisp';updateInput()}
+function sprintCheck(){if(!RUN||RUN.locked||screen!=='sprint'||!RUN.q)return;const s=String(RUN.q.answer);if(A.buf.length<s.length)return;const ok=A.buf===s,d=$('#disp');RUN.n++;RUN.results.push({skill:'facts',ok});const sk=S.skills.facts;sk.seen++;if(ok)sk.correct++;sk.recent.push(ok?1:0);if(sk.recent.length>20)sk.recent.shift();dayAdd('facts',ok);addTime();
+ if(ok){bump('correct');bump('math');RUN.score++;gain(1);RUN.earned++;$('#sscore').textContent=RUN.score;$('#hc').textContent=S.hearts;d.classList.add('ok');tone([880,1175],.05);buddyJump();RUN.locked=true;setTimeout(sprintNextQ,160)}
+ else{RUN.locked=true;d.classList.add('bad');d.textContent=`${RUN.q.prompt.replace('?','')}${s}`;sfx.bad();setTimeout(sprintNextQ,900)}}
 function sprintEnd(){screen='summary';addTime();const sk=S.skills.facts,a=RUN.n?RUN.score/RUN.n:0;if(RUN.n>=8&&a>=.9&&RUN.score>=12&&sk.level<5){sk.level++;RUN.ups.push('facts');bump('levelups')}else if(RUN.n>=5&&a<.6&&sk.level>1)sk.level--;
  S.best.sprint=Math.max(S.best.sprint,RUN.score);const d=day();const was=d.done.sprint;d.done.sprint=true;if(!was){gain(5);RUN.earned+=5}if(STATIONS.every(x=>d.done[x.id])&&!d.complete){d.complete=true;bumpStreak();gain(10);RUN.earned+=10;RUN.missionDone=true}save();renderSummary()}
 
@@ -1018,7 +1073,7 @@ function fbHTML(fb){if(fb.self)return`<div class="coach box"><div class="coach-h
 function localCoach(text,goal){const ss=splitSents(text),words=text.match(/[A-Za-z’']+/g)||[],fixes=[];
  words.forEach(w=>{const k=w.toLowerCase().replace(/'/g,'');if(COMMON[k]&&fixes.length<4&&!fixes.some(f=>f.wrong===w))fixes.push({wrong:w,right:COMMON[k],why:'spelling'})});
  if(/(^|\s)i(\s|’|'|$)/.test(text)&&fixes.length<4)fixes.push({wrong:'i',right:'I',why:'always a capital'});
- const low=ss.find(s=>/^[a-z]/.test(s));if(low&&fixes.length<4){const w=low.split(/\s+/)[0];fixes.push({wrong:w,right:w[0].toUpperCase()+w.slice(1),why:'start sentences with a capital'})}
+ const low=ss.find(s=>/^[a-z]/.test(s));if(low&&fixes.length<4){const w=low.split(/\s+/)[0];if(!fixes.some(f=>f.wrong.toLowerCase()===w.toLowerCase()))fixes.push({wrong:w,right:w[0].toUpperCase()+w.slice(1),why:'start sentences with a capital'})}
  if(!/[.!?]["”’]?\s*$/.test(text.trim())&&fixes.length<4)fixes.push({wrong:'the last sentence',right:'add an end mark',why:'. ! or ?'});
  const trans=TRANS_RE.test(text),n=ss.length;const rubric={topic:n&&ss[0].split(/\s+/).length>=5?2:1,details:n>=goal.n?2:n>=2?1:0,organization:trans?2:n>=3?1:0,conventions:fixes.length===0?2:fixes.length<=2?1:0};
  const tot=rubric.topic+rubric.details+rubric.organization+rubric.conventions,stars=tot>=7?3:tot>=4?2:1;
@@ -1051,9 +1106,9 @@ Prompt she answered: "${prompt}"`,{images:[blob]});
 async function qwSend(){if(QW.busy)return;const hand=QW.mode==='hand';let t='';
  if(hand){if(hwInk()<40){toast('Write a little more first!');return}}else{t=QW.text.trim();if((t.match(/[A-Za-z]+/g)||[]).length<6){toast('Write a little more first!');return}}
  QW.busy=true;addTime();$('#coachArea').innerHTML=`<div class="loading">${spr('owl','sm','bob')}<b>Coach Hoot is reading your ${hand?'handwriting':'writing'}…</b></div>`;drawAll();$$('[data-act="qw-send"],[data-act="qw-done"]').forEach(b=>b.disabled=true);
- let fb;if(hand){fb=await coachHand(await hwBlob(),QW.p.t,QW.goal);if(!fb){QW.busy=false;QW.fb={self:true,checks:[false,false,false,false]};if(!QW.entry){QW.entry={d:today(),p:QW.p.t,kind:QW.p.kind,first:'(handwritten, checked by her own checklist)',fb0:{stars:1,glow:'Wrote by hand.',grow:'',rubric:{}},final:null,fb:null,hand:true,base:!!(RUN&&RUN.mode==='placement')};S.writing.push(QW.entry);if(S.writing.length>20)S.writing.shift()}save();renderQW();return}t=fb.transcript||'(handwritten)'}
+ let fb;if(hand){fb=await coachHand(await hwBlob(),QW.p.t,QW.goal);if(!fb){QW.busy=false;QW.fb={self:true,checks:[false,false,false,false]};if(!QW.entry){bump('writes');bump('hand');QW.entry={d:today(),p:QW.p.t,kind:QW.p.kind,first:'(handwritten, checked by her own checklist)',fb0:{stars:1,glow:'Wrote by hand.',grow:'',rubric:{}},final:null,fb:null,hand:true,base:!!(RUN&&RUN.mode==='placement')};S.writing.push(QW.entry);if(S.writing.length>20)S.writing.shift()}save();renderQW();return}t=fb.transcript||'(handwritten)'}
  else fb=await coach(t,QW.p.t,QW.goal);
- QW.busy=false;const revising=!!(QW.fb&&!QW.fb.self);if(!revising){bump('writes');if(hand)bump('hand')}QW.fb=fb;const earn=revising?3:fb.stars*2+2+(hand?2:0);gain(earn);if(RUN)RUN.earned+=earn;
+ QW.busy=false;const revising=!!(QW.fb&&!QW.fb.self);if(!revising&&!QW.entry){bump('writes');if(hand)bump('hand')}QW.fb=fb;const earn=revising?3:fb.stars*2+2+(hand?2:0);gain(earn);if(RUN)RUN.earned+=earn;
  if(!QW.entry){QW.entry={d:today(),p:QW.p.t,kind:QW.p.kind,first:t,fb0:fb,final:null,fb:null,hand,base:!!(RUN&&RUN.mode==='placement')};S.writing.push(QW.entry);if(S.writing.length>20)S.writing.shift()}else{QW.entry.final=t;QW.entry.fb=fb;if(hand)QW.entry.hand=true}
  addTime();save();renderQW();sfx.good();burst(innerWidth/2,innerHeight*.35,fb.stars*10);toast(`+${earn} hearts from Coach Hoot${hand&&!revising?' (+2 for handwriting!)':''}`)}
 
@@ -1090,7 +1145,7 @@ const ACT={
  'pick-rescue'(b){S.current=b.dataset.id;S.choices=null;save();sfx.good();renderHome()},
  'rescue-done'(){const nm=($('#cn').value||'').trim()||CRITTERS[S.current].name;const cost=need();if(S.outfit&&S.outfit.cur){S.outfit['r'+S.rescued.length]=S.outfit.cur;delete S.outfit.cur}S.rescued.push({id:S.current,name:nm,at:today()});S.rescueHearts=Math.max(0,S.rescueHearts-cost);S.current=null;S.choices=null;save();renderChoose()},
  'start-check'(b){startCheck(b.dataset.area)},
- 'start-station'(b){const st=b.dataset.st;if(day().done[st]&&screen==='home'){toast('Bonus round! Hearts still count.')}startStation(st);if(day().done[st]&&RUN&&RUN.mode==='practice')RUN.station='bonus'},
+ 'start-station'(b){const st=b.dataset.st;if(day().done[st]&&screen==='home'){toast('Practice round! Hearts still count.')}startStation(st);if(day().done[st]&&RUN&&RUN.mode==='practice')RUN.station='bonus'},
  'go-home'(){goHome()},
  key(b){key(b.dataset.k)},
  fslot(b){A.focus=b.dataset.f;updateInput()},
@@ -1098,7 +1153,7 @@ const ACT={
  check(){doCheck()},
  next(){nextQ()},
  speak(){const q=RUN&&RUN.q;if(!q)return;if(q.type==='spell')return say([q.answer,q.sentPlain,q.answer]);let t=speakText(q.prompt+(q.sub?'. '+q.sub:''));if(q.word)t=q.sentPlain+'. Which word is spelled correctly?';if(q.type==='mc'&&!q.word)t+='. Choices: '+q.choices.map(c=>speakText(c.h)).join('. Or, ');say(t)},
- idk(){answer(false)},
+ idk(){if(RUN)RUN.idk=true;answer(false)},
  showchoices(){const q=RUN.q;RUN.q={...q,type:'mc',prompt:'Which word is spelled correctly?',choices:mcChoices(q.answer,misspell(q.answer))};renderQ()},
  quit(){confirmBox('Leave for now? Everything you’ve answered so far is saved.','Go to the Cove',()=>{if(QW&&screen==='qw'&&QW.text&&!QW.fb){}goHome()})},
  sound(){S.sound=!S.sound;save();if(screen==='home')renderHome();else if(screen==='choose')renderChoose();else{const b=$('[data-act="sound"]');if(b)b.innerHTML=S.sound?ICON.soundOn:ICON.soundOff}},
@@ -1412,7 +1467,7 @@ Object.assign(ACCART,{
 function wearSVG(w,sp){let b='',f='';if(!w)return{b,f};['neck','face','hat','hold'].forEach(slot=>{const id=w[slot];if(!id)return;const [base,col]=id.split('-');const fn=ACCART[base];if(fn){const r=col?fn(sp,COLS[col]):fn(sp);b+=r.b||'';f+=r.f||''}});return{b,f}}
 
 /* ---------- unlocks, challenges ---------- */
-const SLOTNAME={hat:'hat',face:'glasses',neck:'neckwear',hold:'held item',bg:'scene',decor:'decoration'};
+const SLOTNAME={hat:'hat',face:'face item',neck:'neckwear',hold:'held item',bg:'scene',decor:'decoration'};
 const WEAR_SLOTS=['hat','face','neck','hold'];
 function allItems(){const out=[];for(const k in CFG.items)CFG.items[k].forEach(it=>out.push({...it,slot:k}));return out}
 const isOwned=it=>it.free||(it.cost?(S.bought||[]).includes(it.id):CFG.stat(it.need[0])>=it.need[1]);
@@ -1438,13 +1493,13 @@ function tileHTML(it,pet){const owned=isOwned(it),slot=DU.tab,isNew=(S.newItems|
 const LOCK=`<svg viewBox="0 0 24 24" class="li" aria-hidden="true"><rect x="5" y="10" width="14" height="11" rx="2.5" fill="currentColor"/><path d="M8 10V7a4 4 0 0 1 8 0v3" stroke="currentColor" stroke-width="2.4" fill="none"/></svg>`;
 const DTABS=[['hat','Hats'],['face','Glasses'],['neck','Neckwear'],['hold','Hold'],['bg','Scenes'],['decor','Decorations'],['goals','Challenges']];
 function goalsHTML(){const items=allItems(),owned=items.filter(isOwned).length;const locked=items.filter(it=>!isOwned(it)&&!it.cost).map(it=>({it,r:Math.min(1,CFG.stat(it.need[0])/it.need[1])})).sort((a,b)=>b.r-a.r);
- return`<p class="goalsum">You’ve earned <b>${owned}</b> of <b>${items.length}</b> items. Keep going to unlock the rest!</p><div class="goals2">${locked.map(({it,r})=>`<div class="goal2"><span class="gprev">${WEAR_SLOTS.includes(it.slot)?CFG.art((CFG.pets()[DU.pet]||CFG.samplePet).id,'sm','',{[it.slot]:it.id}):it.slot==='bg'?`<span class="bgthumb sm">${CFG.sceneSVG(it.id,[])}</span>`:`<svg class="decicon" viewBox="-70 -130 140 140">${CFG.decorArt(it.id)}</svg>`}</span><span class="gtext"><b>${esc(it.name)}</b> <span class="muted">${SLOTNAME[it.slot]}</span><br>${esc(it.need[2])}<span class="tbar"><i style="width:${r*100}%"></i></span><span class="tprog">${Math.min(CFG.stat(it.need[0]),it.need[1])} / ${it.need[1]}</span></span></div>`).join('')||'<p>You unlocked everything. Amazing!</p>'}</div>`}
+ return`<p class="goalsum">${SAYBTN('say-dress')}<span>You’ve earned <b>${owned}</b> of <b>${items.length}</b> items. Keep going to unlock the rest!</span></p><div class="goals2">${locked.map(({it,r})=>`<div class="goal2"><span class="gprev">${WEAR_SLOTS.includes(it.slot)?CFG.art((CFG.pets()[DU.pet]||CFG.samplePet).id,'sm','',{[it.slot]:it.id}):it.slot==='bg'?`<span class="bgthumb sm">${CFG.sceneSVG(it.id,[])}</span>`:`<svg class="decicon" viewBox="-70 -130 140 140">${CFG.decorArt(it.id)}</svg>`}</span><span class="gtext"><b>${esc(it.name)}</b> <span class="muted">${SLOTNAME[it.slot]}</span><br>${esc(it.need[2])}<span class="tbar"><i style="width:${r*100}%"></i></span><span class="tprog">${Math.min(CFG.stat(it.need[0]),it.need[1])} / ${it.need[1]}</span></span></div>`).join('')||'<p>You unlocked everything. Amazing!</p>'}</div>`}
 function renderDress(){screen='dress';hush();const pets=CFG.pets();if(DU.pet>=pets.length)DU.pet=0;const pet=pets[DU.pet]||null;const y=scrollY;
  app.innerHTML=`${topbar()}<div class="xpage"><div class="xhead"><button class="btn ghost sm" data-act="go-home">${ICON.back} Home</button><h1>Dress Up</h1></div>
- <div class="dress-grid"><section class="box stagebox"><div class="stage">${CFG.sceneSVG(S.scene.bg,S.scene.decor)}<div class="stagepet">${pet?petArt(pet,'xl','bob'):''}</div></div>
+ <div class="dress-grid"><section class="box stagebox ${['bg','decor'].includes(DU.tab)?'tabscene':'tabwear'}"><div class="stage">${CFG.sceneSVG(S.scene.bg,S.scene.decor)}<div class="stagepet">${pet?petArt(pet,'xl','bob'):''}</div></div>${stripHTML()}
   ${pets.length?`<div class="petpick">${pets.map((p,i)=>`<button class="${i===DU.pet?'on':''}" data-act="du-pet" data-i="${i}">${petArt(p,'sm')}<span>${esc(p.name)}</span></button>`).join('')}</div>${pet&&Object.values(wearOf(pet.key)).some(Boolean)?`<button class="linkbtn" data-act="du-clear">Take everything off ${esc(pet.name)}</button>`:''}`:`<p class="muted" style="padding:0 14px">${CFG.noPets}</p>`}</section>
  <section class="box shopbox"><div class="dtabs" role="tablist">${DTABS.map(([k,l])=>`<button role="tab" aria-selected="${DU.tab===k}" class="${DU.tab===k?'on':''}" data-act="du-tab" data-t="${k}">${l}${k!=='goals'&&newIn(k)?'<i class="dot"></i>':''}</button>`).join('')}</div>
-  ${DU.tab==='goals'?goalsHTML():`<p class="shophint">${WEAR_SLOTS.includes(DU.tab)?(pet?`Tap to put it on ${esc(pet.name)}. Tap again to take it off.`:'Pick a friend first.'):DU.tab==='bg'?'Pick the scene for your '+CFG.placeName+'.':'Pick up to 3 decorations for your '+CFG.placeName+'.'} Locked items show how to earn them, and shop items cost ${CFG.curName}.</p><div class="pkrow"><span class="wallet">${ICON.heart} ${wallet().toLocaleString('en-US')}</span>${['All',...packsOf(DU.tab)].map(p=>`<button class="pk ${DUPK===p?'on':''}" data-act="du-pk" data-p="${esc(p)}">${esc(p)}</button>`).join('')}</div><div class="items2">${CFG.items[DU.tab].filter(it=>DUPK==='All'||(it.p||'Classic')===DUPK).map(it=>tileHTML(it,pet)).join('')||'<p class="muted">Nothing in this pack for this tab yet.</p>'}</div>`}</section></div></div>`;
+  ${DU.tab==='goals'?goalsHTML():`<p class="shophint">${SAYBTN('say-dress')}<span>${WEAR_SLOTS.includes(DU.tab)?(pet?`Tap to put it on ${esc(pet.name)}. Tap again to take it off.`:'Pick a friend first.'):DU.tab==='bg'?'Pick the scene for your '+CFG.placeName+'.':'Pick up to 3 decorations for your '+CFG.placeName+'.'} Locked items show how to earn them, and shop items cost ${CFG.curName}.</span></p><div class="pkrow"><span class="wallet">${ICON.heart} ${wallet().toLocaleString('en-US')}</span>${['All',...packsOf(DU.tab)].map(p=>`<button class="pk ${DUPK===p?'on':''}" data-act="du-pk" data-p="${esc(p)}">${esc(p)}</button>`).join('')}</div><div class="items2">${CFG.items[DU.tab].filter(it=>DUPK==='All'||(it.p||'Classic')===DUPK).map(it=>tileHTML(it,pet)).join('')||'<p class="muted">Nothing in this pack for this tab yet.</p>'}</div>`}</section></div></div>`;
  S.newItems=(S.newItems||[]).filter(id=>{const it=allItems().find(x=>x.id===id);return it&&it.slot!==DU.tab});wireGate();scrollTo(0,y)}
 Object.assign(ACT,{
  dress(){DU.tab=DU.tab||'hat';renderDress()},
@@ -1458,10 +1513,13 @@ Object.assign(ACT,{
   const pets=CFG.pets(),pet=pets[DU.pet];S.scene=S.scene||{bg:CFG.items.bg[0].id,decor:[]};
   if(WEAR_SLOTS.includes(it.slot)){if(!pet){toast(CFG.noPets);return}S.outfit=S.outfit||{};const w={...(S.outfit[pet.key]||{})};w[it.slot]=w[it.slot]===it.id?null:it.id;S.outfit[pet.key]=w;if(w[it.slot])tone([660,990],.06,'triangle')}
   else if(it.slot==='bg'){S.scene.bg=it.id;tone([520,780],.06,'triangle')}
-  else{const d=S.scene.decor.slice();const i=d.indexOf(it.id);if(i>=0)d.splice(i,1);else{d.push(it.id);if(d.length>3)d.shift()}S.scene.decor=d;tone([600,900],.05,'triangle')}
+  else{const d=S.scene.decor.slice();const i=d.indexOf(it.id);if(i>=0)d.splice(i,1);else{d.push(it.id);if(d.length>3){const g=d.shift(),gi=CFG.items.decor.find(x=>x.id===g);toast(`Only 3 decorations fit, so I took off the ${esc(gi?gi.name:g)}.`)}}S.scene.decor=d;tone([600,900],.05,'triangle')}
   save();renderDress()},
 });
 const LOCK_TXT='Locked:';
+function stripHTML(){const svg=CFG.sceneSVG(S.scene.bg,S.scene.decor).replace(/preserveAspectRatio="[^"]*"/,'preserveAspectRatio="xMidYMid meet"');const m=svg.match(/viewBox="0 0 (\d+) (\d+)"/);return`<div class="scenestrip"><span class="sslabel">Your ${CFG.placeName}</span><div class="ssview" style="aspect-ratio:${m?m[1]+' / '+m[2]:'1000 / 280'}">${svg}</div></div>`}
+const SAYBTN=act=>`<button class="iconbtn sm saybtn" data-act="${act}" aria-label="Read this to me">${ICON.speaker}</button>`;
+Object.assign(ACT,{'say-dress'(){const parts=[];const h=$('.shophint span')||$('.goalsum span');if(h)parts.push(h.innerText);if(DU.tab==='goals')$$('.goal2 .gtext').slice(0,3).forEach(g=>parts.push(g.innerText.replace(/\n+/g,'. ').replace(/(\d+) \/ (\d+)/g,'$1 of $2 done')));say(parts.flatMap(p=>[p,400]))}});
 
 /* ---------- field guide + quizzes ---------- */
 const realImg=(id,cls='')=>`<img class="realpic ${cls}" src="${CFG.imgDir}/${id}.jpg" alt="${esc(CFG.spec[id].cap)}" onerror="this.style.display='none'">`;
@@ -1479,8 +1537,8 @@ function runQuiz(id){const r=CFG.spec[id],qs=r.quiz.map(q=>({q:q[0],c:shuffle(q.
   say([q.q,600,...q.c.flatMap((c,k)=>[k?(k===q.c.length-1?'or':''):'',c.t,350]).filter(x=>x!=='')]);
   $$('.qc button',body).forEach(b=>b.onclick=()=>{if(body.dataset.lock==='1')return;body.dataset.lock='1';const c=q.c[+b.dataset.k];const right=$$('.qc button',body)[q.c.findIndex(x=>x.ok)];right.classList.add('right');
    if(c.ok){score++;sfx.good();$('#qfb').innerHTML=`<b>That’s right!</b>`;say('That is right!')}else{b.classList.add('wrong');sfx.bad();$('#qfb').innerHTML=`The answer is <b>${esc(q.c.find(x=>x.ok).t)}</b>.`;say(['The answer is',q.c.find(x=>x.ok).t])}
-   setTimeout(()=>{body.dataset.lock='0';i++;show()},1700)})};
- const done=()=>{const pass=score>=2;S.quiz=S.quiz||[];let msg='';if(pass&&!S.quiz.includes(id)){S.quiz.push(id);CFG.gain(CFG.quizReward);msg=`You earned ${CFG.quizReward} ${CFG.curName}!`;burst();sfx.win()}else if(pass){msg='You already earned the reward for this one. Nice review!'}save();
+   setTimeout(()=>{body.dataset.lock='0';i++;if($('#modal').hidden||!body.isConnected){hush();if(i>=qs.length)done();return}show()},1700)})};
+ const done=()=>{const pass=score>=2;S.quiz=S.quiz||[];let msg='',fresh=false;if(pass&&!S.quiz.includes(id)){S.quiz.push(id);CFG.gain(CFG.quizReward);msg=`You earned ${CFG.quizReward} ${CFG.curName}!`;fresh=true}else if(pass){msg='You already earned the reward for this one. Nice review!'}save();if($('#modal').hidden||!body.isConnected){hush();return}if(fresh){burst();sfx.win()}
   body.innerHTML=`<div class="quiz done"><div class="qq">${score} out of ${qs.length} right!</div><p>${pass?`Great job! ${msg}`:'Read the facts again and try one more time. You can do it!'}</p><div class="row"><button class="btn ghost sm" id="qAgain">Try again</button><button class="btn sm ${CFG.dressBtnCls}" id="qBack">Back to facts</button></div></div>`;
   say([`${score} out of ${qs.length} right!`,400,pass?`Great job! ${msg}`:'Read the facts again and try one more time.']);$('#qAgain').onclick=()=>runQuiz(id);$('#qBack').onclick=()=>openLearn(id)};
  body.dataset.lock='0';show()}
@@ -1488,9 +1546,9 @@ Object.assign(ACT,{guide(){renderGuide()},learn(b){openLearn(b.dataset.id)}});
 
 
 function plainAns(q){return String(answerHTML(q)).replace(/<span class="fr" aria-label="([^"]+)">.*?<\/span><\/span>/g,' $1 ').replace(/<[^>]+>/g,' ').replace(/&gt;/g,'greater than').replace(/&lt;/g,'less than').replace(/\s+/g,' ').trim()}
-function showMiss(q){$$('.choice').forEach((b,i)=>{if(q.choices&&q.choices[i]&&q.choices[i].ok)b.classList.add('right')});sfx.bad();
- showFb('teach',`<b>Not quite. The answer is ${answerHTML(q)}.</b><div class="exp">${q.explain||''}</div><button class="btn teal" data-act="next">Got it ${ICON.arrow}</button>`);
- say(['Not quite.',300,'The answer is',plainAns(q),700,String(q.explain||'').replace(/<[^>]+>/g,' ')])}
+function showMiss(q){$$('.choice').forEach((b,i)=>{if(q.choices&&q.choices[i]&&q.choices[i].ok)b.classList.add('right')});sfx.bad();const idk=!!(RUN&&RUN.idk),pa=plainAns(q),dot=/[.!?]$/.test(pa)?'':'.';if(RUN)RUN.idk=false;
+ showFb('teach',`${idk?`<b>That’s okay! Here’s how it works:</b><div>The answer is <b>${answerHTML(q)}</b>${dot}</div>`:`<b>Not quite. The answer is ${answerHTML(q)}${dot}</b>`}<div class="exp">${q.explain||''}</div><button class="btn teal" data-act="next">Got it ${ICON.arrow}</button>`);
+ say([idk?'That’s okay! Here’s how it works.':'Not quite.',300,'The answer is',pa,700,String(q.explain||'').replace(/<[^>]+>/g,' ')])}
 function offerBonus(){screen='bonus';const n=RUN.missed.length;hush();
  app.innerHTML=`${topbar()}<div class="box center-card"><div class="glow">${spr(S.current||'owl','xl','bob')}</div><h1>Bonus round!</h1><p style="margin:0;max-width:40ch">You missed ${n} question${n>1?'s':''}. You saw the right answer${n>1?'s':''}. Do you remember? Get each one right for <b>+1</b> bonus heart.</p><div class="row center"><button class="btn teal" data-act="bonus-go">Start bonus round ${ICON.arrow}</button><button class="btn ghost" data-act="bonus-skip">Skip</button></div></div>`;wireGate();
  say(['Bonus round!',400,`You missed ${n} question${n>1?'s':''}.`,300,'Do you remember the right answers?'])}
@@ -1502,7 +1560,7 @@ function showCopy(t){const m=$('#modal');m.innerHTML=`<div class="box mbox"><p>S
 app.addEventListener('click',e=>{const b=e.target.closest('[data-act]');if(!b||b.disabled)return;const f=ACT[b.dataset.act];if(f)f(b)});
 function wireGate(){const g=$('#gate');if(!g)return;let t=null;const start=e=>{e.preventDefault();g.classList.add('holding');t=setTimeout(()=>{g.classList.remove('holding');renderDash()},1200)},stop=()=>{g.classList.remove('holding');clearTimeout(t)};
  g.addEventListener('pointerdown',start);['pointerup','pointerleave','pointercancel'].forEach(ev=>g.addEventListener(ev,stop));g.addEventListener('click',()=>{if(screen!=='dash')toast('Grown-ups: press and hold')});g.addEventListener('contextmenu',e=>e.preventDefault())}
-document.addEventListener('keydown',e=>{if(e.target.matches('input,textarea')||!RUN||!RUN.q)return;if(!(screen==='q'||screen==='sprint'))return;const q=RUN.q;
+document.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target&&(e.target.id==='cn'||e.target.id==='dn')){e.preventDefault();const f=ACT[e.target.id==='cn'?'rescue-done':'dash-name'];if(f)f();return}if(e.target.matches('input,textarea')||!RUN||!RUN.q)return;if(!(screen==='q'||screen==='sprint'))return;const q=RUN.q;
  if(e.key==='Enter'){if(RUN.locked){if($('[data-act="next"]'))nextQ()}else if(screen==='q')doCheck();e.preventDefault();return}
  if(q.type==='spell'){if(/^[a-z]$/i.test(e.key))key(e.key.toLowerCase());else if(e.key==='Backspace')key('del');else if(e.key==="'")key("'")}
  else if(q.type==='num'||q.type==='frac'){if(/^[0-9.]$/.test(e.key))key(e.key);else if(e.key==='Backspace')key('del');else if(e.key==='Tab'&&q.type==='frac'){e.preventDefault();A.focus=A.focus==='w'?'n':A.focus==='n'?'d':'w';updateInput()}}
