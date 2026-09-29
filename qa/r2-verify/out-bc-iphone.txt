@@ -1,0 +1,76 @@
+fb1 Coach Hoot says | Who | What happened | Why |  | Glow: You told who and what happened. |  | Grow: Add why it happened. |  | Fix-its | storroom → storeroom spelling
+qs {
+  qs: [
+    'You wrote that Mara found a strange box. Why do you think she opened it?',
+    'What do you think will happen next?',
+    'What do you predict will happen next? What clue made you think so?'
+  ],
+  dropped: 0,
+  src: 'coach'
+}
+replies [
+  'What a thoughtful reason!',
+  'Great thinking!',
+  'Love your prediction!'
+]
+draw toast Drawing saved to your gallery! +4 hearts
+art doc { doc: true, bytes: 11675, stateHasImg: false }
+story fb Coach Hoot says |  | Glow: You wrote a fun adventure! |  | Grow: Add one more detail.
+hand fb Coach Hoot says | Who | What happened | Why |  | Coach Hoot read: “Mara ran to the roof because she was scared.” |  | Glow: You told who and why. |  | Grow: Tell what Mara found.
+e2 {
+  sum: 'Mara ran to the roof because she was scared.',
+  hw: 'hwmumyd42d952'
+}
+hand qs [
+  'What do you think will happen next?',
+  'How did Mara feel?',
+  'How do you think the main character felt in this chapter? What makes you think that?'
+]
+state size { ls: 15309, db: 3256 }
+stats { h: 0, ch: 0, art: 0, bk: 0 } { h: 36, ch: 12, art: 11, bk: 1 }
+goals book lines [
+  'Golden Book held item\nFinish 3 books in Book Club',
+  'Book held item\nPass 5 Field Guide quizzes'
+]
+prompts 6
+gallery { n: 1, ok: 1, miss: 0 }
+rlog Book Club reading log | 12 | CHAPTERS LOGGED | 1 | BOOKS FINISHED | 11 | DRAWINGS / STORIES | 0 | SUMMARIES REVISED | DATE	BOOK	CH.	HER SUMMARY	MADE | 2026-09-29	The Moonlight Pipeworks	12	She went to the market because she needed food for her family and friends. Then she met a new friend there.She went to the market b
+copy toast Reading log copied clip Mia’s reading log (Critter Cove Book Club), printed 9/29/2026
+
+2026-09-29 | The Moonlight Pipeworks by Zara Quill | Chapter 1 | Mara found a strange box in the storroom because the lights went out. |  modal 
+PASS own book saved
+PASS coach glow+grow shown
+PASS fix-it for word not in text dropped
+PASS real spelling fix-it shown
+PASS chapter logged, counts for day
+PASS 3 questions shown
+PASS 3 replies
+PASS drawing saved on entry
+PASS drawing stored in separate db doc cove_art/<id>
+PASS db state doc has no image data
+PASS toast says saved to gallery
+FAIL "Make another" drawing keeps first drawing (same id artmumyczdk822; overwritten=true)
+PASS story saved
+PASS handwritten summary image saved with id
+PASS handwriting image in separate db doc
+PASS shows transcript
+PASS handwritten chapter questions safe
+PASS main state < 60KB with 12 chapters: 15309
+PASS must rate before finish
+PASS certificate shown
+PASS dress-up counters moved chapters/books/bookart
+PASS Bunny Ears (5 chapters) unlocked
+PASS no child name/title/author in 6 sample prompts (leaks 0)
+PASS book prompts have no location
+PASS gallery shows drawing after reload (loaded from db doc)
+PASS reading log copied (or copy box shown)
+PASS log has title by author
+PASS no time words
+PASS no uncaught errors: 
+INFO lowcontrast think-intro: 2.54 "1" rgb(255, 255, 255)
+INFO lowcontrast think-qs: 2.54 "1" rgb(255, 255, 255)
+INFO lowcontrast replies: 2.54 "1" rgb(255, 255, 255)
+INFO lowcontrast make-choose: 2.54 "1" rgb(255, 255, 255); 2.54 "2" rgb(255, 255, 255)
+INFO lowcontrast draw: 2.54 "1" rgb(255, 255, 255); 2.54 "2" rgb(255, 255, 255)
+INFO lowcontrast story: 2.54 "1" rgb(255, 255, 255); 2.54 "2" rgb(255, 255, 255)
+INFO small targets dash: INPUT.[] "" 249x42

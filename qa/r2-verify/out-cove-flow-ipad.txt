@@ -1,0 +1,57 @@
+sample miss fb: [
+  'W Not quite. The answer is 110. | 10 × 11 = 110. | Tens: put a zero on the end of 11 to get 110. | Got it',
+  'W Not quite. The answer is 7.3. | The hundredths digit is 4. That is less than 5, so the tenths digit stays the same: 7.34',
+  'W Not quite. The answer is 5.4. | Line up the decimal points and fill empty places with zeros: |   8.0 | − 2.6 | ----- |  ',
+  'W Not quite. The answer is  | 8 | 15 | . | Tops: 4 × 2 = 8. Bottoms: 5 × 3 = 15. So  | 4 | 5 |  ×  | 2 | 3 |  =  | 8 | 15 '
+]
+sprint lasted ~ 57 s wall
+before {
+  h: 75,
+  st: { n: 0, last: null },
+  lv: '{"facts":3,"multi":4,"place":2,"dec":3,"frac":4,"fracx":2,"ops":3,"geo":4,"word":2,"spell":4,"homo":2,"caps":3,"runon":4,"combine":2,"trans":3,"detail":4,"gram":2}'
+} after {
+  h: 158,
+  st: { n: 1, last: '2026-09-29' },
+  done: { sprint: true, math: true, spell: true, write: true },
+  lv: '{"facts":3,"multi":4,"place":2,"dec":3,"frac":4,"fracx":2,"ops":3,"geo":4,"word":2,"spell":4,"homo":2,"caps":3,"runon":4,"combine":2,"trans":3,"detail":4,"gram":2}',
+  rev: 18
+}
+home after: Critter Cove | 1 | 158 | Grown-ups | Rescue complete! |  | You earned enough hearts to bring this Gray Fox home to the Cove. |  | Real Gray Fox |  | A real gray fox. Gray foxes live in Florida and across much of North America. |  | Learn more about the Gray Fox | Give your new friend a name | Welcome home | +8 hearts from Coach Hoot
+pre-rescue screen rescue { rh: 158, need: 60 }
+next day { n: 1, rv: 5, scr: 'rescue' }
+buyable decor { id: 'discoball', cost: 600 }
+confirm btns [ 'undefined:Not now', 'undefined:Buy it!' ]
+after buy { own: true, w: 2558, eq: '{}', deco: 'null' }
+PASS home after choose
+PASS placement math ends at summary (summary)
+PASS placement spell ends at summary (summary)
+PASS placement write ends at summary (summary)
+PASS all placements done
+PASS every miss shows feedback
+PASS no time words on home: 
+PASS sprint intro no time words: 
+PASS sprint play no clock text
+PASS no timer element
+PASS sprint summary no time words: 
+PASS station math ends at summary (summary)
+PASS station spell ends at summary (summary)
+PASS station write ends at summary (summary)
+PASS hearts increased
+PASS streak set {"n":1,"last":"2026-09-29"}
+PASS all stations done today {"sprint":true,"math":true,"spell":true,"write":true}
+PASS rescue -> choose next critter
+PASS streak alive next day
+FAIL math station button on next day home (rescue)
+PASS dress screen
+INFO goals tab mentions chapters/books: true
+PASS bought decoration, hearts deducted
+PASS guide opens
+PASS guide photos load 12
+PASS grown-ups dashboard opens via hold
+PASS dash has Comeback Cards + Book Club sections
+PASS no uncaught errors: 
+INFO lowcontrast home-checkups: 2.70 "0" rgb(255, 107, 87)
+INFO lowcontrast sprint-play: 1.82 "?" rgb(201, 191, 176)
+INFO lowcontrast dress: 3.48 "New!" rgb(255, 255, 255)
+INFO small targets on dash: INPUT.[] "" 249x42
+INFO lowcontrast dash: 3.53 "On grade level" rgb(27, 143, 102); 3.53 "On grade level" rgb(27, 143, 102); 3.53 "On grade level" rgb(27, 143, 102); 3.53 "On grade level" rgb(27, 143, 102); 3.53 "On grade level" rgb(27, 143, 102)

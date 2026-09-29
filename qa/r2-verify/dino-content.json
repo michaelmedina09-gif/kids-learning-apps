@@ -1,0 +1,846 @@
+{
+ "elk": [
+  {
+   "w": "sun",
+   "gr": [
+    "s",
+    "u",
+    "n"
+   ]
+  },
+  {
+   "w": "cat",
+   "gr": [
+    "c",
+    "a",
+    "t"
+   ]
+  },
+  {
+   "w": "dog",
+   "gr": [
+    "d",
+    "o",
+    "g"
+   ]
+  },
+  {
+   "w": "bed",
+   "gr": [
+    "b",
+    "e",
+    "d"
+   ]
+  },
+  {
+   "w": "pig",
+   "gr": [
+    "p",
+    "i",
+    "g"
+   ]
+  },
+  {
+   "w": "map",
+   "gr": [
+    "m",
+    "a",
+    "p"
+   ]
+  },
+  {
+   "w": "web",
+   "gr": [
+    "w",
+    "e",
+    "b"
+   ]
+  },
+  {
+   "w": "rug",
+   "gr": [
+    "r",
+    "u",
+    "g"
+   ]
+  },
+  {
+   "w": "ship",
+   "gr": [
+    "sh",
+    "i",
+    "p"
+   ]
+  },
+  {
+   "w": "fish",
+   "gr": [
+    "f",
+    "i",
+    "sh"
+   ]
+  },
+  {
+   "w": "chin",
+   "gr": [
+    "ch",
+    "i",
+    "n"
+   ]
+  },
+  {
+   "w": "duck",
+   "gr": [
+    "d",
+    "u",
+    "ck"
+   ]
+  },
+  {
+   "w": "moth",
+   "gr": [
+    "m",
+    "o",
+    "th"
+   ]
+  },
+  {
+   "w": "bell",
+   "gr": [
+    "b",
+    "e",
+    "ll"
+   ]
+  },
+  {
+   "w": "frog",
+   "gr": [
+    "f",
+    "r",
+    "o",
+    "g"
+   ]
+  },
+  {
+   "w": "stop",
+   "gr": [
+    "s",
+    "t",
+    "o",
+    "p"
+   ]
+  },
+  {
+   "w": "clap",
+   "gr": [
+    "c",
+    "l",
+    "a",
+    "p"
+   ]
+  },
+  {
+   "w": "crab",
+   "gr": [
+    "c",
+    "r",
+    "a",
+    "b"
+   ]
+  },
+  {
+   "w": "jump",
+   "gr": [
+    "j",
+    "u",
+    "m",
+    "p"
+   ]
+  },
+  {
+   "w": "hand",
+   "gr": [
+    "h",
+    "a",
+    "n",
+    "d"
+   ]
+  },
+  {
+   "w": "nest",
+   "gr": [
+    "n",
+    "e",
+    "s",
+    "t"
+   ]
+  },
+  {
+   "w": "tent",
+   "gr": [
+    "t",
+    "e",
+    "n",
+    "t"
+   ]
+  },
+  {
+   "w": "milk",
+   "gr": [
+    "m",
+    "i",
+    "l",
+    "k"
+   ]
+  },
+  {
+   "w": "stamp",
+   "gr": [
+    "s",
+    "t",
+    "a",
+    "m",
+    "p"
+   ]
+  },
+  {
+   "w": "blend",
+   "gr": [
+    "b",
+    "l",
+    "e",
+    "n",
+    "d"
+   ]
+  },
+  {
+   "w": "crust",
+   "gr": [
+    "c",
+    "r",
+    "u",
+    "s",
+    "t"
+   ]
+  },
+  {
+   "w": "cake",
+   "gr": [
+    "c",
+    "a_e",
+    "k"
+   ]
+  },
+  {
+   "w": "bike",
+   "gr": [
+    "b",
+    "i_e",
+    "k"
+   ]
+  },
+  {
+   "w": "rope",
+   "gr": [
+    "r",
+    "o_e",
+    "p"
+   ]
+  },
+  {
+   "w": "feet",
+   "gr": [
+    "f",
+    "ee",
+    "t"
+   ]
+  }
+ ],
+ "chains": [
+  {
+   "focus": "short a, final",
+   "words": [
+    "cat",
+    "cap",
+    "can",
+    "cab",
+    "tab"
+   ]
+  },
+  {
+   "focus": "mixed CVC",
+   "words": [
+    "cat",
+    "cap",
+    "map",
+    "mop",
+    "top",
+    "tip"
+   ]
+  },
+  {
+   "focus": "short i/a vowel",
+   "words": [
+    "sit",
+    "sat",
+    "pat",
+    "pit",
+    "pin",
+    "pan"
+   ]
+  },
+  {
+   "focus": "short o/u",
+   "words": [
+    "hot",
+    "hut",
+    "nut",
+    "not",
+    "nod",
+    "rod"
+   ]
+  },
+  {
+   "focus": "short e",
+   "words": [
+    "bed",
+    "bad",
+    "bid",
+    "lid",
+    "led",
+    "let"
+   ]
+  },
+  {
+   "focus": "all short vowels",
+   "words": [
+    "big",
+    "bag",
+    "beg",
+    "bug",
+    "rug",
+    "rag"
+   ]
+  },
+  {
+   "focus": "initial sounds",
+   "words": [
+    "sun",
+    "fun",
+    "run",
+    "bun",
+    "bud",
+    "mud"
+   ]
+  },
+  {
+   "focus": "digraphs",
+   "words": [
+    "ship",
+    "shop",
+    "chop",
+    "chip",
+    "chin",
+    "thin"
+   ]
+  },
+  {
+   "focus": "digraph ck",
+   "words": [
+    "back",
+    "pack",
+    "pick",
+    "sick",
+    "sock",
+    "rock"
+   ]
+  },
+  {
+   "focus": "digraph th/sh",
+   "words": [
+    "bath",
+    "math",
+    "mash",
+    "cash",
+    "dash",
+    "dish"
+   ]
+  },
+  {
+   "focus": "digraph wh/ch",
+   "words": [
+    "whip",
+    "chip",
+    "chop",
+    "chap",
+    "chat",
+    "that"
+   ]
+  },
+  {
+   "focus": "initial blends",
+   "words": [
+    "lip",
+    "slip",
+    "slap",
+    "flap",
+    "flip",
+    "clip"
+   ]
+  },
+  {
+   "focus": "initial blends",
+   "words": [
+    "rip",
+    "drip",
+    "trip",
+    "trap",
+    "tram",
+    "trim"
+   ]
+  },
+  {
+   "focus": "final blends",
+   "words": [
+    "bet",
+    "best",
+    "nest",
+    "vest",
+    "vet",
+    "wet"
+   ]
+  },
+  {
+   "focus": "final blends",
+   "words": [
+    "lap",
+    "lamp",
+    "camp",
+    "cap",
+    "cup",
+    "pup"
+   ]
+  },
+  {
+   "focus": "silent e (add/remove e)",
+   "words": [
+    "tap",
+    "tape",
+    "cape",
+    "cap",
+    "cop",
+    "cope"
+   ]
+  },
+  {
+   "focus": "silent e i_e",
+   "words": [
+    "pin",
+    "pine",
+    "line",
+    "lime",
+    "time",
+    "tame"
+   ]
+  },
+  {
+   "focus": "silent e o_e/u_e",
+   "words": [
+    "hop",
+    "hope",
+    "rope",
+    "robe",
+    "rob",
+    "rub",
+    "cub",
+    "cube"
+   ]
+  },
+  {
+   "focus": "vowel team ee",
+   "words": [
+    "see",
+    "seed",
+    "feed",
+    "feel",
+    "peel",
+    "peek",
+    "week"
+   ]
+  },
+  {
+   "focus": "vowel team ai + blends",
+   "words": [
+    "rain",
+    "pain",
+    "paint",
+    "pant",
+    "plant",
+    "plan"
+   ]
+  }
+ ],
+ "stories": [
+  {
+   "id": 1,
+   "title": "Zap and the Cat",
+   "pattern": "CVC short a, i",
+   "heart": [
+    "the",
+    "a",
+    "is",
+    "has",
+    "his"
+   ],
+   "text": "Zap has a tan cap. A fat cat ran at Zap. The cat bit the cap! Zap is mad. Zap can tap the cat. Tap, tap! The cat hid in a bin. Zap sat. Zap had a nap in his cap."
+  },
+  {
+   "id": 2,
+   "title": "The Bug in the Pod",
+   "pattern": "CVC short o, u (+ a, i)",
+   "heart": [
+    "the",
+    "a",
+    "is",
+    "to",
+    "of"
+   ],
+   "text": "A bug sat in a pod. The bug can hop. Hop, hop, hop! It hops to the top of a big pot. The pot is hot! The bug hops in a tub of mud. Rub, rub, rub. The bug is a mud bug. It is fun!"
+  },
+  {
+   "id": 3,
+   "title": "The Red Jet",
+   "pattern": "CVC short e (+ all short vowels)",
+   "heart": [
+    "the",
+    "a",
+    "is",
+    "has",
+    "to",
+    "said",
+    "was"
+   ],
+   "text": "Rex has a red jet. Zap gets in. Rex gets in. \"Get set!\" said Rex. The jet can zip. Up, up, up! It zips to the sun. The sun is hot. Rex gets wet. Zap gets wet. Rex was not sad. \"Yes! The jet is a hit!\" said Zap."
+  },
+  {
+   "id": 4,
+   "title": "Fish on the Ship",
+   "pattern": "digraphs sh, ch, th",
+   "heart": [
+    "the",
+    "a",
+    "is",
+    "has",
+    "said"
+   ],
+   "text": "Rex has a ship. Rex sets a fish in a dish on the ship. Chug, chug! Then the ship hits a moth. Thud! The dish tips. The fish is on the rug! Rex gets the fish. \"Shh. Such a chum!\" said Rex. Then Rex chats with the fish."
+  },
+  {
+   "id": 5,
+   "title": "The Sock on the Rock",
+   "pattern": "digraphs ck, wh, ng",
+   "heart": [
+    "the",
+    "a",
+    "was",
+    "said",
+    "is",
+    "of"
+   ],
+   "text": "Zap had a sock. The sock was on a rock. Whack! A duck hit the rock. The sock is in the mud. \"Which duck did that?\" said Zap. The duck sang a long song. Zap got the sock back. The duck was a pal of Zap."
+  },
+  {
+   "id": 6,
+   "title": "Crab and Frog",
+   "pattern": "initial blends (fr, cr, st, sn, fl, pl)",
+   "heart": [
+    "a",
+    "the",
+    "said",
+    "do",
+    "me",
+    "I"
+   ],
+   "text": "A crab and a frog sit on a flat rock. The frog can flip. The crab can snap. Snap, snap! \"Stop!\" said the frog. \"Do not snap at me!\" The crab did stop. \"I am glad,\" said the frog. Plop! The frog swam and the crab sat."
+  },
+  {
+   "id": 7,
+   "title": "Rex at Camp",
+   "pattern": "final blends (-mp, -nt, -nd, -st, -lt, -sk, -pt)",
+   "heart": [
+    "the",
+    "a",
+    "to",
+    "of",
+    "he",
+    "so"
+   ],
+   "text": "Rex went to camp. Rex had a tent and a lamp. At dusk, a big wind hit the tent. The tent bent! Rex held the tent. He did not stop. At last the wind did stop. The rest of the camp slept, and so did Rex."
+  },
+  {
+   "id": 8,
+   "title": "Zap Makes a Kite",
+   "pattern": "silent e: a_e, i_e",
+   "heart": [
+    "the",
+    "a",
+    "to",
+    "was",
+    "said",
+    "I",
+    "is"
+   ],
+   "text": "Zap made a kite. It was white with a red stripe. Up went the kite! \"It is a fine kite!\" said Zap. Then the kite hit a pine. Zap gave the pine a shake. The kite came back to Zap. \"I like this kite,\" said Zap."
+  },
+  {
+   "id": 9,
+   "title": "The Dome",
+   "pattern": "silent e: o_e, u_e (+ a_e, i_e)",
+   "heart": [
+    "the",
+    "a",
+    "to",
+    "I",
+    "said",
+    "put",
+    "you",
+    "is",
+    "has",
+    "of"
+   ],
+   "text": "Rex has a dome. Then a hole broke the dome! Zap rode to the dome with a tube of paste. \"I will fix the hole!\" said Zap. Zap put paste on the hole. Rex got a rope to help. The dome is safe. \"You rule!\" said Rex."
+  },
+  {
+   "id": 10,
+   "title": "Snack by the Sea",
+   "pattern": "vowel teams ee, ea",
+   "heart": [
+    "the",
+    "a",
+    "said",
+    "to",
+    "his",
+    "was",
+    "of",
+    "from"
+   ],
+   "text": "Rex can see the sea from his seat. \"Let us eat!\" said Zap. Zap had a green bean and a peach. Rex had a heap of meat. Then a seal came up to the jet. The seal was sweet. Rex gave the seal a treat. The seal did a leap!"
+  },
+  {
+   "id": 11,
+   "title": "A Rainy Day",
+   "pattern": "vowel teams ai, ay",
+   "heart": [
+    "the",
+    "a",
+    "said",
+    "we",
+    "they"
+   ],
+   "text": "Zap and Rex play on a gray day. Rain hits the train. \"Wait!\" said Zap. \"We may get wet.\" They stay in the train. They paint a snail. Zap paints a red tail on the snail. Rex paints a gray trail. Then the rain stops. Yay!"
+  },
+  {
+   "id": 12,
+   "title": "The Toad in the Boat",
+   "pattern": "vowel teams oa, ow (long o) + review",
+   "heart": [
+    "the",
+    "a",
+    "I",
+    "they",
+    "is",
+    "has"
+   ],
+   "text": "Rex has a red boat. Rex rows the boat on the moat. A toad sits on a log. The toad croaks. \"Can I get a tow?\" Rex lets the toad in. The boat is slow, but it floats. Rex and the toad row home, and they eat toast."
+  }
+ ],
+ "gate": {
+  "4": [
+   "digraph",
+   2
+  ],
+  "5": [
+   "digraph",
+   2
+  ],
+  "6": [
+   "cvc",
+   4
+  ],
+  "7": [
+   "cvc",
+   4
+  ],
+  "8": [
+   "magic",
+   2
+  ],
+  "9": [
+   "magic",
+   2
+  ],
+  "10": [
+   "magic",
+   3
+  ],
+  "11": [
+   "magic",
+   3
+  ],
+  "12": [
+   "magic",
+   3
+  ]
+ },
+ "start": [
+  [
+   4,
+   {
+    "digraph": 3
+   }
+  ],
+  [
+   6,
+   {
+    "digraph": 3,
+    "cvc": 4
+   }
+  ],
+  [
+   8,
+   {
+    "digraph": 3,
+    "cvc": 5,
+    "magic": 3
+   }
+  ],
+  [
+   10,
+   {
+    "digraph": 3,
+    "cvc": 5,
+    "magic": 4
+   }
+  ]
+ ],
+ "chainlv": {
+  "1": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6
+  ],
+  "2": [
+   7,
+   8,
+   9,
+   10
+  ],
+  "3": [
+   11,
+   12,
+   13,
+   14
+  ],
+  "4": [
+   15,
+   16,
+   17,
+   18,
+   19
+  ]
+ },
+ "E": [
+  "cat",
+  "dog",
+  "pig",
+  "sun",
+  "bus",
+  "bed",
+  "hat",
+  "bat",
+  "fox",
+  "hen",
+  "box",
+  "bug",
+  "map",
+  "log",
+  "web",
+  "van",
+  "rat",
+  "fan",
+  "ten",
+  "six",
+  "net",
+  "pen",
+  "cup",
+  "ship",
+  "fish",
+  "shell",
+  "sheep",
+  "chick",
+  "cheese",
+  "chair",
+  "thumb",
+  "duck",
+  "sock",
+  "whale",
+  "wheel",
+  "bath",
+  "frog",
+  "flag",
+  "crab",
+  "drum",
+  "sled",
+  "nest",
+  "milk",
+  "gift",
+  "plant",
+  "truck",
+  "skunk",
+  "snake",
+  "snail",
+  "spoon",
+  "tree",
+  "cake",
+  "bike",
+  "kite",
+  "rope",
+  "bone",
+  "cube",
+  "five",
+  "nine",
+  "rose",
+  "boat",
+  "goat",
+  "rain",
+  "train",
+  "bee",
+  "feet",
+  "leaf",
+  "seal",
+  "moon",
+  "snow",
+  "ball",
+  "lion",
+  "key",
+  "robot",
+  "rocket",
+  "zebra",
+  "yarn",
+  "jar",
+  "gum",
+  "king",
+  "mouse",
+  "pie",
+  "wolf",
+  "vase",
+  "dino",
+  "star",
+  "meat",
+  "plane"
+ ]
+}
