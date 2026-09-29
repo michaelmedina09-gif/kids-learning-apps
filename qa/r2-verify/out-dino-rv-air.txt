@@ -1,0 +1,79 @@
+[
+  'add:51kpxa b1 2026-09-30',
+  'elk:ship b1 2026-09-30',
+  'chain:cat>cap b1 2026-09-30',
+  'sight:w:me b1 2026-09-30',
+  'elk:frog b1 2026-09-30'
+]
+d1 [{"k":"add:51kpxa","right":true,"fb":"You remembered! That’s right! | +2"},{"k":"elk:ship","right":true,"fb":"You remembered! That’s right! | +2"},{"k":"chain:cat>cap","right":true,"fb":"You remembered! That’s right! | +2"}]
+{
+  'add:51kpxa': [ 2, '2026-10-03', 1, '' ],
+  'elk:ship': [ 2, '2026-10-03', 1, '' ],
+  'chain:cat>cap': [ 2, '2026-10-03', 1, '' ],
+  'sight:w:me': [ 1, '2026-09-30', 0, '' ],
+  'elk:frog': [ 1, '2026-09-30', 0, '' ]
+}
+d2 [{"k":"sight:w:me","right":false,"fb":"Not quite. The answer is me. | This word is me. | Got it"},{"k":"elk:frog","right":true,"fb":"You remembered! That’s right! | +2"}]
+d4 [
+  'sight:w:me You remembered! That’s right! | +2',
+  'add:51kpxa You remembered! That’s right! | +2',
+  'elk:ship You remembered! That’s right! | +2'
+]
+d11 [
+  'chain:cat>cap You remembered! That’s right! | +2',
+  'elk:frog You remembered! That’s right! | +2',
+  'sight:w:me You remembered! That’s right! | +2'
+]
+d25 [
+  'add:51kpxa Mistake conquered! | You got this one right on 3 d',
+  'elk:ship Mistake conquered! | You got this one right on 3 d',
+  'chain:cat>cap Mistake conquered! | You got this one right on 3 d'
+]
+d55 [
+  'sight:w:me Mistake conquered! | You got this one right on 3 d',
+  'elk:frog Mistake conquered! | You got this one right on 3 d',
+  'add:51kpxa You remembered! That’s right! | +2'
+]
+final {
+  'add:51kpxa': [ 5, '2026-12-23', 4, '2026-10-24' ],
+  'elk:ship': [ 4, '2026-11-07', 3, '2026-10-24' ],
+  'chain:cat>cap': [ 4, '2026-11-07', 3, '2026-10-24' ],
+  'sight:w:me': [ 4, '2026-12-07', 3, '2026-11-23' ],
+  'elk:frog': [ 4, '2026-12-07', 3, '2026-11-23' ]
+}
+{ due: 2, active: 5, conq: 5, week: 2, all: 5 }
+dash Comeback Cards | 5 | MISTAKES CONQUERED | 2 | CONQUERED THIS WEEK | 2 | DUE TODAY | 5 | WAITING TO COME BACK | Word Sounds ×2 | Adding ×1 | Word Builder ×1 | Star Words ×1 |  | Every first-try miss comes back as a Comeback Card 1, 3, 7, 14 and 30 days later (up to 3 a day, at the start of the mission). A miss sends it back to 1 day. “Conquered” means right on 3 separate days.
+snd [
+  'elk ship count+: Yes! ship has 3 sounds.',
+  'elk ship letters: ship! | sh · i · p',
+  'chain cat>cap +: cat → cap!',
+  'elk frog count+: Yes! frog has 4 sounds.',
+  'elk frog letters: frog! | f · r · o · g',
+  'elk ship count+: Yes! ship has 3 sounds.',
+  'elk ship letters: ship! | sh · i · p',
+  'chain cat>cap +: cat → cap!',
+  'elk frog count+: Yes! frog has 4 sounds.',
+  'elk frog letters: frog! | f · r · o · g',
+  'elk ship count+: Yes! ship has 3 sounds.',
+  'elk ship letters: ship! | sh · i · p',
+  'chain cat>cap +: cat → cap!',
+  'elk frog count+: Yes! frog has 4 sounds.',
+  'elk frog letters: frog! | f · r · o · g',
+  'elk ship count+: Yes! ship has 3 sounds.',
+  'elk ship letters: ship! | sh · i · p',
+  'chain cat>cap +: cat → cap!'
+]
+PASS no Comeback station day 0
+PASS Comeback Cards is first station on day 1
+PASS 3 cards per day (3)
+PASS 3 different skills
+PASS right -> box 2
+PASS box 2 due in 3 days
+PASS day 2: remaining 2 due cards
+PASS miss shows answer: Not quite. The answer is me. | This word is me. | Got it
+PASS miss -> box 1 due tomorrow
+PASS conquered after 3 wins
+FAIL a card retired after box 5
+PASS dash shows conquered
+INFO same-day replay after done: {"n":2,"keys":["elk:ship","chain:cat>cap"]}
+PASS no uncaught errors 

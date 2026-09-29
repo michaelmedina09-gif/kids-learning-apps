@@ -44,7 +44,7 @@ ok(Object.entries(b).filter(([k])=>k!==missed.skill).every(([k,v])=>v[0]===3&&v[
 ok(await p.evaluate(()=>S.review.filter(x=>x.box===3).every(x=>x.due===addDays(7))),'box 3 due in 7 days');
 // dashboard
 await p.evaluate(()=>renderDash());await p.waitForTimeout(200);const dt=await p.evaluate(()=>{const h=[...document.querySelectorAll('section')].find(s=>/Comeback Cards/.test(s.innerText));return h&&h.innerText.replace(/\n/g,' | ')});log('dash:',dt);
-const st=await p.evaluate(()=>reviewStats());ok(st.conq===4&&st.waiting===5,'dash stats conq=4 waiting=5 '+JSON.stringify(st));ok(dt&&dt.includes('4 | mistakes conquered'),'dash shows 4 conquered');await shot(p,P+'dash');
+const st=await p.evaluate(()=>reviewStats());ok(st.conq===4&&st.waiting===5,'dash stats conq=4 waiting=5 '+JSON.stringify(st));ok(dt&&/4 \| mistakes conquered/i.test(dt),'dash shows 4 conquered');await shot(p,P+'dash');
 // Advance to box 6 (retired) for one card; mastered message
 await p.evaluate(()=>{const it=S.review.find(x=>x.box===3);it.box=5;it.due=today();save()});w=await warmup(()=>true,'d4b');
 // note: warm-up already done on day 4, so should be none

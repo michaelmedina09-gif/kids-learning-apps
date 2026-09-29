@@ -1,0 +1,5 @@
+PASS home after choose
+PASS placement math ends at summary (summary)
+PASS placement spell ends at summary (summary)
+PASS placement write ends at summary (summary)
+PASS all placements done

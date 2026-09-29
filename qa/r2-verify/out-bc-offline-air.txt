@@ -1,0 +1,44 @@
+fb1 Coach Hoot says | Who | What happened | Why |  | Glow: You explained WHY it happened. That makes a summary really clear! |  | Grow: Read it out loud. Does it tell the most important thing that happened?
+qs {
+  qs: [
+    'You wrote: “Mara found a strange box in the storroom because the lights went out.” What do you think will happen because of that?',
+    'What do you predict will happen next? What clue made you think so?',
+    'How do you think the main character felt in this chapter? What makes you think that?'
+  ],
+  dropped: 0,
+  src: 'local'
+}
+replies [
+  'You explained your thinking with a reason. That’s what great readers do!',
+  'That’s thoughtful! You really paid attention to the story.',
+  'Great prediction words! Keep reading to find out what happens.'
+]
+draw toast Saved on this device only for now. It’s safe here! +4 hearts
+story fb Coach Hoot says |  | Glow: You used a transition word to connect your ideas. |  | Grow: Add one detail that tells how, why, or what it looked like.
+hand fb Check your own summary | Coach Hoot can’t read handwriting on this device, so be your own coach. Tap each one that’s true. | My summary tells WHO. | It tells WHAT happened. | It tells WHY. | It is 1 or 2 sentences.
+e2 { sum: '(handwritten summary)', hw: 'hwmun17y33917' }
+hand qs [
+  'Find a new or interesting word in this chapter. Type the word, then use it in your own sentence.',
+  'Is the main character like you or different from you? Tell one way.',
+  'What does the main character want most right now? What is getting in the way?'
+]
+state size { ls: 15381, db: null }
+stats { h: 0, ch: 0, art: 0, bk: 0 } { h: 36, ch: 12, art: 11, bk: 1 }
+goals book lines [
+  'Golden Book held item\nFinish 3 books in Book Club',
+  'Book held item\nPass 5 Field Guide quizzes'
+]
+after reload { screen: 'welcome', has: false, rh: null }
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+page.click: Timeout 30000ms exceeded.
+Call log:
+[2m  - waiting for locator('[data-act="bookclub"]')[22m
+
+    at /home/claude/kids-learning-apps/qa/r2-verify/cove-book2.mjs:81:359 {
+  name: 'TimeoutError'
+}
+
+Node.js v22.22.2

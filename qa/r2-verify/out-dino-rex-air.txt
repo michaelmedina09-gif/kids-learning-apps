@@ -1,0 +1,95 @@
+d0 { id: 1, pass: 0, re: false, replay: false, n: 9 }
+boundary highlight seq -1,-1,0,1,2,3,4,4,4,-1,-1,-1,-1,-1
+timed seq -1,-1,-1,0,0,0,0,1,1,1,2,2,3,3,3,3
+readAlong hits [ 0, 1, 2, 3, -1 ]
+tap toast Grown-ups: press and hold
+q spoken Who is in this story?
+qa [
+  'wrong1:Almost! Think about the story.',
+  'wrong2:It was Zap. | Next',
+  'wrong1:Almost! Think about the story.',
+  'wrong2:It was the cap. | Next'
+]
+rec d0 {
+  reads: 1,
+  dates: [ '2026-09-29' ],
+  fluent: 1,
+  q: [ 0, 2 ],
+  rereads: 0
+}
+d0 replay { id: 1, pass: 1, re: false, replay: true, n: 9 }
+d1 { id: 1, pass: 1, re: false, replay: false, n: 9 }
+pass tag YOU READ, I HELP
+d2 { id: 1, pass: 2, re: false, replay: false, n: 9 }
+pass tag READ IT LIKE A STAR
+rec {
+  reads: 3,
+  dates: [ '2026-09-29', '2026-09-30', '2026-10-01' ],
+  fluent: 1,
+  q: [ 6, 8 ],
+  rereads: 1,
+  doneAt: '2026-10-01'
+}
+d3 { id: 2, pass: 0, re: false, replay: false, n: 9 }
+gate same day { id: 3, pass: 2, reread: true }
+gate +1 { id: 3, pass: 2, reread: true }
+gate +2 { id: 4, pass: 0, reread: false }
+advanced { id: 10, pass: 0, reread: false }
+mid { id: 6, pass: 0, reread: false }
+1 [{"p":"Who is in this story?","ok":["Zap"],"wrong":["duck","bug"]},{"p":"What does Zap have?","ok":["cap"],"wrong":["pot","bus"]}]
+2 [{"p":"Who is in this story?","ok":["bug"],"wrong":["Bronto","fish"]},{"p":"What is in this story?","ok":["pot"],"wrong":["pine","log"]}]
+3 [{"p":"Who is in this story?","ok":["Rex"],"wrong":["crab","frog"]},{"p":"What does Rex have?","ok":["jet"],"wrong":["pine","kite"]}]
+4 [{"p":"Who is in this story?","ok":["Rex"],"wrong":["Bronto","snail"]},{"p":"What does Rex have?","ok":["ship"],"wrong":["rock","bed"]}]
+5 [{"p":"Who is in this story?","ok":["Zap"],"wrong":["seal","bug"]},{"p":"What did Zap have?","ok":["sock"],"wrong":["meat","ball"]}]
+6 [{"p":"Who is in this story?","ok":["frog"],"wrong":["bug","Bronto"]},{"p":"What is in this story?","ok":["rock"],"wrong":["sun","tub"]}]
+7 [{"p":"Who is in this story?","ok":["Rex"],"wrong":["bug","frog"]},{"p":"What did Rex have?","ok":["tent"],"wrong":["bean","sun"]}]
+8 [{"p":"Who is in this story?","ok":["Zap"],"wrong":["Bronto","frog"]},{"p":"What did Zap make?","ok":["kite"],"wrong":["tub","hat"]}]
+9 [{"p":"Who is in this story?","ok":["Rex"],"wrong":["Nova","snail"]},{"p":"What did Rex get?","ok":["rope"],"wrong":["tub","kite"]}]
+10 [{"p":"Who is in this story?","ok":["seal"],"wrong":["bug","duck"]},{"p":"What did Zap have?","ok":["bean"],"wrong":["bed","cap"]}]
+11 [{"p":"Who is in this story?","ok":["Zap"],"wrong":["fish","frog"]},{"p":"What is in this story?","ok":["train"],"wrong":["lamp","dish"]}]
+12 [{"p":"Who is in this story?","ok":["Rex"],"wrong":["bug","frog"]},{"p":"What does Rex have?","ok":["boat"],"wrong":["rock","key"]}]
+PASS new kid: story 1 (CVC), reading 1
+FAIL preview read aloud: Welcome to Dino Star Patrol! What is your name? Ask a grown-up to help you type it. /   / Read to Rex!
+PASS tap preview word speaks
+PASS read-along highlight moves word by word (boundary) -1,-1,0,1,2,3,4,4,4,-1,-1,-1,-1,-1
+PASS after read-along says "Now you read it"
+PASS tap-a-word speaks "a": ["a"]
+PASS tapped word logged for grown-ups
+PASS read-along works without boundary events (timed) -1,-1,-1,0,0,0,0,1,1,1,2,2,3,3,3,3
+PASS end screen
+PASS hold button height 46
+PASS quick tap does NOT mark fluent
+PASS 0.6s press does NOT mark fluent
+PASS touch tap does NOT mark fluent
+PASS 1.4s hold marks fluent
+PASS question read aloud with choices
+PASS after 2 misses shows correct answer
+PASS rex summary
+PASS reads=1 fluent=1
+PASS same day again = replay (not a new reading)
+PASS replay same day does not count as reading 2 (1)
+PASS day 1: story 1 reading 2
+PASS day 2: story 1 reading 3
+PASS 3rd reading: finished message
+PASS 3 readings on 3 different days
+PASS day 3: next story 2
+PASS story 4 locked day after -> reread
+PASS 2 days later story 4 opens
+PASS advanced kid starts at story 10
+PASS digraph3+cvc4 starts at 6
+PASS story 1 has 2 questions (2)
+PASS story 2 has 2 questions (2)
+PASS story 3 has 2 questions (2)
+PASS story 4 has 2 questions (2)
+PASS story 5 has 2 questions (2)
+PASS story 6 has 2 questions (2)
+PASS story 7 has 2 questions (2)
+PASS story 8 has 2 questions (2)
+PASS story 9 has 2 questions (2)
+PASS story 10 has 2 questions (2)
+PASS story 11 has 2 questions (2)
+PASS story 12 has 2 questions (2)
+PASS no uncaught errors 
+INFO small|end|BUTTON.chip[] "Grown-up: “He read it!” (press" 378x46
+INFO small|sum|BUTTON.chip[sound] "Sound on" 56x46
+INFO small|sum|BUTTON.chip[] "Grown-ups" 121x46

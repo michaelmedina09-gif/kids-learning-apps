@@ -1,0 +1,49 @@
+fb1 Coach Hoot says | Who | What happened | Why |  | Glow: You told who and what happened. |  | Grow: Add why it happened. |  | Fix-its | storroom → storeroom spelling
+qs {
+  qs: [
+    'You wrote "the lights went out". How do you think Mara felt?',
+    'What do you predict will happen next? What clue made you think so?',
+    'How do you think the main character felt in this chapter? What makes you think that?'
+  ],
+  dropped: 1,
+  src: 'coach'
+}
+replies [
+  'What a thoughtful reason!',
+  'Great thinking!',
+  'Love your prediction!'
+]
+draw toast Drawing saved to your gallery! +4 hearts
+art doc { doc: true, bytes: 11991, stateHasImg: false }
+story fb Coach Hoot says |  | Glow: You wrote a fun adventure! |  | Grow: Add one more detail.
+hand fb Coach Hoot says | Who | What happened | Why |  | Coach Hoot read: “Mara ran to the roof because she was scared.” |  | Glow: You told who and why. |  | Grow: Read it out loud. Does it tell the most important thing that happened?
+e2 {
+  sum: 'Mara ran to the roof because she was scared.',
+  hw: 'hwmun3b7yq278'
+}
+hand qs [
+  'You wrote: “Mara ran to the roof because she was scared.” What do you think will happen because of that?',
+  'Find a new or interesting word in this chapter. Type the word, then use it in your own sentence.',
+  'Is the main character like you or different from you? Tell one way.'
+]
+state size { ls: 15674, db: 3621 }
+stats { h: 0, ch: 0, art: 0, bk: 0 } { h: 40, ch: 12, art: 11, bk: 1 }
+goals book lines [
+  'Golden Book held item\nFinish 3 books in Book Club',
+  'Book held item\nPass 5 Field Guide quizzes'
+]
+prompts 6
+after reload { screen: 'welcome', has: false, rh: null }
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+page.click: Timeout 30000ms exceeded.
+Call log:
+[2m  - waiting for locator('[data-act="bookclub"]')[22m
+
+    at /home/claude/kids-learning-apps/qa/r2-verify/cove-book5.mjs:89:359 {
+  name: 'TimeoutError'
+}
+
+Node.js v22.22.2

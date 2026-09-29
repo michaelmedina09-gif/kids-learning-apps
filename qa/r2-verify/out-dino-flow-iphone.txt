@@ -1,19 +1,19 @@
 check areas [ 'math', 'read' ]
 misses fb [
-  'W Not quite. The answer is 49. | 48, then 49. | Got it',
-  'W Not quite. The answer is 4. | Count back 1 from 5: 4. The answer is 4. | Got it',
-  'W Not quite. The answer is 81. | 8 tens = 80. Add 1 one: 81. | Got it',
-  'W Not quite. The answer is 2:30. | The short hand points just past the 2. The long hand points to the ',
-  'W Not quite. The answer is 1. | 5 − 4 = 1 alien left. | Got it'
+  'W Not quite. The answer is 46. | 45, then 46. | Got it',
+  'W Not quite. The answer is 4. | Count back 4 from 8: 7, 6, 5, 4. The answer is 4. | Got it',
+  'W Not quite. The answer is 74. | 7 tens = 70. Add 4 ones: 74. | Got it',
+  'W Not quite. The answer is 9:30. | The short hand points just past the 9. The long hand points to the ',
+  'W Not quite. The answer is 1. | 6 − 5 = 1 alien left. | Got it'
 ]
 day 0 stations [ 'blast', 'math', 'read', 'rex', 'write' ]
-day 0 {"done":{"blast":true,"math":true,"read":true,"rex":true,"write":true},"complete":true,"streak":1,"stars":222,"egg":72,"rv":{"due":0,"active":30,"conq":0,"week":0,"all":30}}
+day 0 {"done":{"blast":true,"math":true,"read":true,"rex":true,"write":true},"complete":true,"streak":1,"stars":222,"egg":72,"rv":{"due":0,"active":29,"conq":0,"week":0,"all":29}}
 day 1 stations [ 'comeback', 'blast', 'math', 'read', 'rex', 'write' ]
-day 1 {"done":{"comeback":true,"blast":true,"math":true,"read":true,"rex":true,"write":true},"complete":true,"streak":2,"stars":405,"egg":85,"rv":{"due":20,"active":53,"conq":0,"week":0,"all":53}}
+day 1 {"done":{"comeback":true,"blast":true,"math":true,"read":true,"rex":true,"write":true},"complete":true,"streak":2,"stars":406,"egg":86,"rv":{"due":17,"active":47,"conq":0,"week":0,"all":47}}
 day 2 stations [ 'comeback', 'blast', 'math', 'read', 'rex', 'write' ]
-day 2 {"done":{"comeback":true,"blast":true,"math":true,"read":true,"rex":true,"write":true},"complete":true,"streak":3,"stars":591,"egg":91,"rv":{"due":38,"active":71,"conq":0,"week":0,"all":71}}
+day 2 {"done":{"comeback":true,"blast":true,"math":true,"read":true,"rex":true,"write":true},"complete":true,"streak":3,"stars":592,"egg":92,"rv":{"due":37,"active":70,"conq":0,"week":0,"all":70}}
 day 3 stations [ 'comeback', 'blast', 'math', 'read', 'rex', 'write' ]
-day 3 {"done":{"comeback":true,"blast":true,"math":true,"read":true,"rex":true,"write":true},"complete":true,"streak":4,"stars":774,"egg":94,"rv":{"due":50,"active":87,"conq":0,"week":0,"all":87}}
+day 3 {"done":{"comeback":true,"blast":true,"math":true,"read":true,"rex":true,"write":true},"complete":true,"streak":4,"stars":775,"egg":95,"rv":{"due":52,"active":86,"conq":0,"week":0,"all":86}}
 rex over days [
   { id: 1, pass: 0, re: false, n: 9, title: 'Zap and the Cat' },
   { id: 1, pass: 1, re: false, n: 9, title: 'Zap and the Cat' },
@@ -21,23 +21,23 @@ rex over days [
   { id: 2, pass: 0, re: false, n: 9, title: 'The Bug in the Pod' }
 ]
 snd [
-  'elk pig count+: Yes! pig has 3 sounds.',
-  'elk pig letters: pig! | p · i · g',
-  'elk cat count-: Almost! Try again. | Say it slowly. Push one pebble for each sound.',
-  'elk cat after tries: cat has 3 sounds. | Now let’s find the letters.',
+  'elk cat count+: Yes! cat has 3 sounds.',
   'elk cat letters: cat! | c · a · t',
+  'elk map count-: Almost! Try again. | Say it slowly. Push one pebble for each sound.',
+  'elk map after tries: map has 3 sounds. | Now let’s find the letters.',
+  'elk map letters: map! | m · a · p',
   'chain cat>cap +: cat → cap!',
   'chain cap>can +: cap → can!',
   'chain can>cab +: can → cab!',
-  'elk dog count+: Yes! dog has 3 sounds.',
-  'elk dog letters: dog! | d · o · g',
-  'elk sun count-: Almost! Try again. | Say it slowly. Push one pebble for each sound.',
-  'elk sun after tries: sun has 3 sounds. | Now let’s find the letters.'
+  'elk rug count+: Yes! rug has 3 sounds.',
+  'elk rug letters: rug! | r · u · g',
+  'elk web count-: Almost! Try again. | Say it slowly. Push one pebble for each sound.',
+  'elk web after tries: web has 3 sounds. | Now let’s find the letters.'
 ]
 PASS home after egg
 PASS placement math -> summary
 PASS placement read -> summary
-PASS all placements done {"math":true,"read":true,"at":1790708208550}
+PASS all placements done {"math":true,"read":true,"at":1790709186628}
 PASS home no time words
 PASS blast intro no time words: 
 PASS blast play has no time words: 
@@ -100,7 +100,7 @@ PASS dress opens
 PASS dino buy item
 PASS dash sections present
 PASS no uncaught errors: 
-INFO spoken sample time words: What time does the clock show?
+INFO spoken sample time words: 
 INFO small|choose|BUTTON.chip[sound] "Sound on" 56x46
 INFO small|choose|BUTTON.chip[] "Grown-ups" 121x46
 INFO small|home-check|BUTTON.chip[sound] "Sound on" 56x46
@@ -126,7 +126,6 @@ INFO small|sum-math|BUTTON.chip[sound] "Sound on" 56x46
 INFO small|sum-math|BUTTON.chip[] "Grown-ups" 121x46
 INFO small|sum-read|BUTTON.chip[sound] "Sound on" 56x46
 INFO small|sum-read|BUTTON.chip[] "Grown-ups" 121x46
-INFO small|rex-end|BUTTON.chip[] "Grown-up: “He read it!” (press" 378x46
 INFO small|sum-rex|BUTTON.chip[sound] "Sound on" 56x46
 INFO small|sum-rex|BUTTON.chip[] "Grown-ups" 121x46
 INFO small|sum-write|BUTTON.chip[sound] "Sound on" 56x46
@@ -140,8 +139,8 @@ INFO small|home|BUTTON.btn[dress] "Dress Up
 19" 158x48
 INFO lowc|home|3.48 "19" rgb(255, 255, 255)
 INFO small|home|BUTTON.btn[dress] "Dress Up
-25" 158x48
-INFO lowc|home|3.48 "25" rgb(255, 255, 255)
+24" 158x48
+INFO lowc|home|3.48 "24" rgb(255, 255, 255)
 INFO small|dress|BUTTON.chip[sound] "Sound on" 56x46
 INFO small|dress|BUTTON.chip[] "Grown-ups" 121x46
 INFO small|dress|BUTTON.btn[go-home] "Home" 131x48
@@ -168,6 +167,5 @@ Normal
 Faster" 96x39
 INFO small|dash|BUTTON.btn[dash-vtest] "Test voice" 171x48
 INFO small|dash|BUTTON.btn[dash-voice] "Read-aloud voice: On" 244x48
-INFO small|dash|BUTTON.btn[dash-copy] "Copy a summary for his teacher" 346x48
 INFO small|dash|BUTTON.btn[dash-redo] "Redo the launch check" 257x48
 INFO small|dash|BUTTON.btn[dash-reset] "Erase all progress" 213x48

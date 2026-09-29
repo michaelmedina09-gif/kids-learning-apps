@@ -1,0 +1,48 @@
+fb1 Coach Hoot says | Who | What happened | Why |  | Glow: You explained WHY it happened. That makes a summary really clear! |  | Grow: Read it out loud. Does it tell the most important thing that happened? |  | Fix-its | storroom → storeroom spelling
+qs {
+  qs: [
+    'Why did she hide the golden key under the old bridge?',
+    'What do you predict will happen next? What clue made you think so?',
+    'How do you think the main character felt in this chapter? What makes you think that?'
+  ],
+  dropped: 5,
+  src: 'coach'
+}
+replies [
+  'You explained your thinking with a reason. That’s what great readers do!',
+  'Great answer! You shared your own ideas clearly.',
+  'Great prediction words! Keep reading to find out what happens.'
+]
+draw toast Drawing saved to your gallery! +4 hearts
+art doc { doc: true, bytes: 11991, stateHasImg: false }
+story fb Coach Hoot says |  | Glow: Great! In the real book, Lina and Doon also find a glowing box in Ember. |  | Grow: Add one more detail.
+hand fb Coach Hoot says | Who | What happened | Why |  | Coach Hoot read: “Mara ran to the roof because she was scared.” |  | Glow: You explained WHY it happened. That makes a summary really clear! |  | Grow: Tell what Mara found.
+e2 {
+  sum: 'Mara ran to the roof because she was scared.',
+  hw: 'hwmun140ot630'
+}
+hand qs [
+  'Why did she hide the golden key under the old bridge?',
+  'Find a new or interesting word in this chapter. Type the word, then use it in your own sentence.',
+  'Is the main character like you or different from you? Tell one way.'
+]
+state size { ls: 15327, db: 3274 }
+stats { h: 0, ch: 0, art: 0, bk: 0 } { h: 36, ch: 12, art: 11, bk: 1 }
+goals book lines [
+  'Golden Book held item\nFinish 3 books in Book Club',
+  'Book held item\nPass 5 Field Guide quizzes'
+]
+prompts 6
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+page.click: Timeout 30000ms exceeded.
+Call log:
+[2m  - waiting for locator('[data-act="bookclub"]')[22m
+
+    at /home/claude/kids-learning-apps/qa/r2-verify/cove-book.mjs:81:54 {
+  name: 'TimeoutError'
+}
+
+Node.js v22.22.2

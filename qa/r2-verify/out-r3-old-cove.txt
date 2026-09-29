@@ -1,0 +1,47 @@
+old keys v,name,created,updated,skills,placement,hearts,rescueHearts,current,choices,rescued,streak,days,missed,writing,sound,best,qwIdx,outfit,scene,stats,guide,quiz,owned,newItems
+ls S null? false ls has true
+ls screen home
+ls stations [ 'sprint', 'math', 'spell', 'write', 'sprint' ]
+db S null? false ls has true
+db screen home
+db stations [ 'sprint', 'math', 'spell', 'write', 'sprint' ]
+PASS [ls] name preserved (Mia -> Mia)
+PASS [ls] hearts preserved (777 -> 777)
+PASS [ls] stars preserved (undefined -> undefined)
+PASS [ls] rh preserved (20 -> 20)
+PASS [ls] egg preserved (undefined -> undefined)
+PASS [ls] cur preserved (raccoon -> raccoon)
+PASS [ls] rescued preserved ([{"id":"fox","name":"Sunny","at":"2026-09-28"}] -> [{"id":"fox","name":"Sunny","at":"2026-09-28"}])
+PASS [ls] streak preserved ({"n":4,"last":"2026-09-28"} -> {"n":4,"last":"2026-09-28"})
+PASS [ls] owned preserved (["bow-blue","bow-purple","beanie-pink","sunhat","bow","headp -> ["bow-blue","bow-purple","beanie-pink","sunhat","bow","headp)
+PASS [ls] lv preserved ({"facts":1,"multi":2,"place":3,"dec":4,"frac":1,"fracx":2,"o -> {"facts":1,"multi":2,"place":3,"dec":4,"frac":1,"fracx":2,"o)
+PASS [ls] place preserved ({"math":true,"spell":true,"write":true,"at":1790280045052} -> {"math":true,"spell":true,"write":true,"at":1790280045052})
+PASS [ls] tdone preserved ({"math":true} -> {"math":true})
+PASS [ls] review[] added (2 cards; missed words seeded: ["spell|because","spell|beautiful"])
+PASS [ls] books[] added
+INFO [ls] sprint -> review-intro
+INFO [ls] math -> review-intro
+INFO [ls] spell -> review-intro
+INFO [ls] write -> review-intro
+INFO [ls] sprint -> review-intro
+PASS [ls] no errors 
+PASS [db] name preserved (Mia -> Mia)
+PASS [db] hearts preserved (777 -> 777)
+PASS [db] stars preserved (undefined -> undefined)
+PASS [db] rh preserved (20 -> 20)
+PASS [db] egg preserved (undefined -> undefined)
+PASS [db] cur preserved (raccoon -> raccoon)
+PASS [db] rescued preserved ([{"id":"fox","name":"Sunny","at":"2026-09-28"}] -> [{"id":"fox","name":"Sunny","at":"2026-09-28"}])
+PASS [db] streak preserved ({"n":4,"last":"2026-09-28"} -> {"n":4,"last":"2026-09-28"})
+PASS [db] owned preserved (["bow-blue","bow-purple","beanie-pink","sunhat","bow","headp -> ["bow-blue","bow-purple","beanie-pink","sunhat","bow","headp)
+PASS [db] lv preserved ({"facts":1,"multi":2,"place":3,"dec":4,"frac":1,"fracx":2,"o -> {"facts":1,"multi":2,"place":3,"dec":4,"frac":1,"fracx":2,"o)
+PASS [db] place preserved ({"math":true,"spell":true,"write":true,"at":1790280045052} -> {"math":true,"spell":true,"write":true,"at":1790280045052})
+PASS [db] tdone preserved ({"math":true} -> {"math":true})
+PASS [db] review[] added (2 cards; missed words seeded: ["spell|because","spell|beautiful"])
+PASS [db] books[] added
+INFO [db] sprint -> review-intro
+INFO [db] math -> review-intro
+INFO [db] spell -> review-intro
+INFO [db] write -> review-intro
+INFO [db] sprint -> review-intro
+PASS [db] no errors 

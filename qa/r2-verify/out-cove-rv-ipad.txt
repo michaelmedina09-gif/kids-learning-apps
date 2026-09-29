@@ -1,0 +1,68 @@
+[
+  { k: 'facts|1uid9jd', s: 'facts', b: 1, due: '2026-09-30' },
+  { k: 'frac|l2ut0i', s: 'frac', b: 1, due: '2026-09-30' },
+  { k: 'caps|1jij1rx', s: 'caps', b: 1, due: '2026-09-30' },
+  { k: 'spell|because', s: 'spell', b: 1, due: '2026-09-30' },
+  { k: 'geo|ahe9p6', s: 'geo', b: 1, due: '2026-09-30' }
+]
+d1 5 Comeback Cards
+will open your mission as a warm-up. [ 'facts', 'frac', 'caps', 'spell', 'geo' ]
+after d1 {
+  facts: [ 2, '2026-10-03' ],
+  frac: [ 2, '2026-10-03' ],
+  caps: [ 2, '2026-10-03' ],
+  spell: [ 2, '2026-10-03' ],
+  geo: [ 2, '2026-10-03' ]
+}
+d4 [
+  'facts+ Mistake conquered! | You got this one right again and again. It’s yours now! | +2',
+  'frac- Not quite. The answer is 1 | 1 | 15 | . | No worries. This card comes back tomorrow. | Mak',
+  'caps+ Mistake conquered! | You got this one right again and again. It’s yours now! | +2',
+  'spell+ Mistake conquered! | You got this one right again and again. It’s yours now! | +2',
+  'geo+ Mistake conquered! | You got this one right again and again. It’s yours now! | +2'
+]
+after d4 {
+  facts: [ 3, '2026-10-10' ],
+  frac: [ 1, '2026-10-04' ],
+  caps: [ 3, '2026-10-10' ],
+  spell: [ 3, '2026-10-10' ],
+  geo: [ 3, '2026-10-10' ]
+}
+dash: Comeback Cards (spaced review) | 4 | MISTAKES CONQUERED | 4 | CONQUERED THIS WEEK | 5 | WAITING TO COME BACK | 0 | DUE TODAY | Multiplication & division facts ×1 | Add & subtract fractions ×1 | Capitalization & punctuation ×1 | Spelling grade-level words ×1 | Perimeter, area & volume ×1 |  | Every first-try miss becomes a card. Cards come back 1, 3, 7, 14 and 30 days later; a right answer moves a card up a box and a miss sends it back to day 1. “Conquered” means she got it right on at least two spaced comebacks. Words that leave the spelling list are checked once more after 14 days.
+d5 [
+  'facts Mastered for good! | This card is retired. Amazing memory! |',
+  'frac It stuck! | This card goes back in the deck and comes back l'
+]
+recheck {
+  w: 'beautiful',
+  stillAfter1: true,
+  gone: true,
+  it: { box: 4, due: '2026-10-18', recheck: 1 },
+  exp: '2026-10-18'
+}
+rc2 { box: 4, due: '2026-10-18', exp: '2026-10-18' }
+PASS new cards start in box 1, due tomorrow 2026-09-30
+PASS nothing due today
+PASS no warm-up when nothing due
+PASS day+1: 5 cards in warm-up
+PASS interleaves 5 skills
+PASS all promoted to box 2
+PASS 
+PASS box 2 due in 3 days
+PASS no repeat warm-up same day
+PASS day+2 nothing due (not early)
+PASS miss shows correct answer: Not quite. The answer is 1 | 1 | 15 | . | No worries. This card comes back tomorrow. | Make the bottoms match. Multiply  | 2 | 5 |  by  | 3 | 3 | :  | 2 | 5 |  =  | 6 | 15 | . | Now  | 6 | 15 |  +  | 
+PASS miss says comes back tomorrow
+PASS box 3 shows Mistake conquered
+PASS miss resets to box 1 due tomorrow
+PASS others to box 3
+PASS box 3 due in 7 days
+PASS dash stats conq=4 waiting=5 {"conq":4,"week":4,"waiting":5,"due":0,"by":{"facts":1,"frac":1,"caps":1,"spell":1,"geo":1}}
+FAIL dash shows 4 conquered
+PASS already warmed-up today even with newly due card
+PASS box5 right -> Mastered for good
+PASS retired card has box 6 no due
+PASS retired spelling word scheduled for recheck in 14 days
+PASS mastered spelling card re-opened for recheck
+PASS summary no time words
+PASS no errors 

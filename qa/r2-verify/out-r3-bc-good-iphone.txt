@@ -1,0 +1,75 @@
+fb1 Coach Hoot says | Who | What happened | Why |  | Glow: You told who and what happened. |  | Grow: Add why it happened. |  | Fix-its | storroom → storeroom spelling
+qs {
+  qs: [
+    'You wrote "the lights went out". How do you think Mara felt?',
+    'What do you predict will happen next? What clue made you think so?',
+    'How do you think the main character felt in this chapter? What makes you think that?'
+  ],
+  dropped: 1,
+  src: 'coach'
+}
+replies [
+  'What a thoughtful reason!',
+  'Great thinking!',
+  'Love your prediction!'
+]
+draw toast Drawing saved to your gallery! +4 hearts
+art doc { doc: true, bytes: 11675, stateHasImg: false }
+story fb Coach Hoot says |  | Glow: You wrote a fun adventure! |  | Grow: Add one more detail.
+hand fb Coach Hoot says | Who | What happened | Why |  | Coach Hoot read: “Mara ran to the roof because she was scared.” |  | Glow: You told who and why. |  | Grow: Read it out loud. Does it tell the most important thing that happened?
+e2 {
+  sum: 'Mara ran to the roof because she was scared.',
+  hw: 'hwmun3cn3v509'
+}
+hand qs [
+  'You wrote: “Mara ran to the roof because she was scared.” What do you think will happen because of that?',
+  'Find a new or interesting word in this chapter. Type the word, then use it in your own sentence.',
+  'Is the main character like you or different from you? Tell one way.'
+]
+state size { ls: 15664, db: 3623 }
+stats { h: 0, ch: 0, art: 0, bk: 0 } { h: 40, ch: 12, art: 11, bk: 1 }
+goals book lines [
+  'Golden Book held item\nFinish 3 books in Book Club',
+  'Book held item\nPass 5 Field Guide quizzes'
+]
+prompts 6
+after reload { screen: 'home', has: true, rh: 40 }
+gallery { n: 2, ok: 2, miss: 0 }
+rlog Book Club reading log | 12 | CHAPTERS LOGGED | 1 | BOOKS FINISHED | 11 | DRAWINGS / STORIES | 0 | SUMMARIES REVISED | DATE	BOOK	CH.	HER SUMMARY	MADE | 2026-09-29	The Moonlight Pipeworks	12	She went to the market because she needed food for her family and friends. Then she met a new friend there.She went to the market b
+copy toast Reading log copied clip Mia’s reading log (Critter Cove Book Club), printed 9/29/2026
+
+2026-09-29 | The Moonlight Pipeworks by Zara Quill | Chapter 1 | Mara found a strange box in the storroom because the lights went out. |  modal 
+PASS own book saved
+PASS coach glow+grow shown
+PASS fix-it for word not in text dropped
+PASS real spelling fix-it shown
+PASS chapter logged, counts for day
+PASS 3 questions shown
+FAIL good quoted questions shown: ["You wrote \"the lights went out\". How do you think Mara felt?","What do you predict will happen next? What clue made you think so?","How do you think the main character felt in this chapter? What makes you think that?"]
+PASS 3 replies
+PASS drawing saved on entry
+PASS drawing stored in separate db doc cove_art/<id>
+PASS db state doc has no image data
+PASS toast says saved to gallery
+PASS Make another keeps first drawing and adds a second ["artmun3ch3c297","artmun3cipl259"]
+PASS chapter shows 2 drawing thumbs (2)
+INFO good story glow kept from AI? true
+INFO good summary glow kept from AI? true
+PASS story saved
+PASS second story kept alongside first (2)
+PASS handwritten summary image saved with id
+PASS handwriting image in separate db doc
+PASS shows transcript
+PASS handwritten chapter questions safe
+PASS main state < 60KB with 12 chapters: 15664
+PASS must rate before finish
+PASS certificate shown
+PASS dress-up counters moved chapters/books/bookart
+PASS Bunny Ears (5 chapters) unlocked
+PASS no child name/title/author in 6 sample prompts (leaks 0)
+PASS book prompts have no location
+PASS gallery shows drawing after reload (loaded from db doc)
+PASS reading log copied (or copy box shown)
+PASS log has title by author
+PASS no time words
+PASS no uncaught errors: 
