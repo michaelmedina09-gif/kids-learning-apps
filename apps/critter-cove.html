@@ -418,7 +418,7 @@ td.std{font-size:12px;color:var(--muted)}
 @keyframes spinme{to{transform:rotate(360deg)}}.spinme{animation:spinme 1.6s linear infinite;transform-box:fill-box;transform-origin:center}
 
 /* ---- QA fixes ---- */
-.toast{pointer-events:none}
+.toast{pointer-events:none;width:max-content}
 @media (max-width:640px){.toast{bottom:auto;top:calc(10px + env(safe-area-inset-top,0px))}}
 .iconbtn.sm{width:44px;height:44px;min-width:44px;flex:none;border-radius:13px}
 .iconbtn.sm .ic,.iconbtn.sm svg{width:22px;height:22px}
@@ -463,7 +463,8 @@ td.std{font-size:12px;color:var(--muted)}
 .nlform input{min-height:44px;width:72px}
 @media (max-width:480px){
  .kb{gap:6px}
- .kb .kr{gap:3px}
+ .kb .kr{gap:2px}
+ .qcard .kb{width:calc(100% + 12px);margin-inline:-6px}
  .kb button{height:54px;border-radius:9px;font-size:22px}
  .qcard{padding-left:10px;padding-right:10px}
 }
@@ -946,7 +947,7 @@ function stairPlanner(spec){let i=0,st=null,count=0;const total=spec.reduce((a,s
   result(ok){count++;const sp=spec[i];if(ok)st.best=Math.max(st.best,st.L);st.step++;if(st.step>=sp.steps){const s=S.skills[sp.id],lvl=Math.max(1,st.best);s.level=lvl;s.placed=lvl;s.hist=[];s.since=0;st=null;i++}else st.L=ok?Math.min(5,st.L+1):Math.max(1,st.L-1)}}}
 function listPlanner(list){let i=0;return{total:list.length,pos:()=>i-(RUN&&RUN.q&&!RUN.locked?1:0),next(){if(i>=list.length)return null;const it=list[i++];const id=typeof it==='string'?it:it.skill;return mk(id,S.skills[id].level,it.word)},result(){}}}
 const RECENTQ=[];const qKey=q=>String(q.prompt||'')+'|'+String(q.fig||'')+'|'+String(q.type==='mc'?((q.choices||[]).find(c=>c.ok)||{}).h:q.answer);
-function mk(id,L,word){let q;for(let t=0;t<8;t++){q=GEN[id](L,word);q.skill=id;q.level=L;if(word||!RECENTQ.includes(qKey(q)))break}RECENTQ.push(qKey(q));if(RECENTQ.length>6)RECENTQ.shift();return q}
+function mk(id,L,word){const last=RECENTQ[RECENTQ.length-1];let q=null,alt=null,c;for(let t=0;t<12;t++){c=GEN[id](L,word);c.skill=id;c.level=L;const k=qKey(c);if(word||!RECENTQ.includes(k)){q=c;break}if(!alt&&k!==last)alt=c}q=q||alt||c;RECENTQ.push(qKey(q));if(RECENTQ.length>6)RECENTQ.shift();return q}
 function needScore(id){const s=S.skills[id],a=acc(id);return(5-s.level)+(1-(a===null?.6:a))*3+Math.random()*.8}
 function planMath(){const ids=MATH_IDS.filter(x=>x!=='facts').map(id=>({id,w:needScore(id)})).sort((a,b)=>b.w-a.w).map(x=>x.id);const f=ids.slice(0,3),o=shuffle(ids.slice(3));return[f[0],f[1],f[2],o[0],f[0],f[1],o[1],f[2],f[0],o[2]]}
 function planSpell(){const rev=Object.entries(S.missed).sort((a,b)=>b[1].miss-a[1].miss).slice(0,3).map(([w])=>({skill:'spell',word:w}));const sp=[...rev];while(sp.length<6)sp.push('spell');return[sp[0],sp[1],'homo',sp[2],sp[3],sp[4],'homo',sp[5]]}
@@ -989,7 +990,7 @@ function answerHTML(q){if(q.type==='num')return(q.pre||'')+(q.pre==='$'?(+q.answ
 function showFb(kind,html){const f=$('#fb');if(!f)return;f.className='fb '+kind;f.innerHTML=html;f.hidden=false;if(kind==='teach'||kind==='warn')f.scrollIntoView({behavior:REDUCED?'auto':'smooth',block:'nearest'})}
 const PRAISE=['Awesome!','You got it!','Pawsome!','Great thinking!','Super!','Nailed it!','Excellent!','Yes!'];
 function buddyJump(){const b=$('#buddy .kw');if(b){b.classList.remove('jump');void b.offsetWidth;b.classList.add('jump')}}
-function answer(ok){if(RUN.locked)return;const q=RUN.q;addTime();RUN.missed=RUN.missed||[];if(RUN.mode==='bonus'){RUN.locked=true;RUN.bonusN=(RUN.bonusN||0)+1;if(ok){RUN.bonusOk=(RUN.bonusOk||0)+1;gain(1);bump('bonus');RUN.earned++;const hc=$('#hc');if(hc)hc.textContent=S.hearts;sfx.good();buddyJump();burst();showFb('good',`<b>You remembered! That’s right!</b><span class="plus">+1 ${ICON.heart}</span>`);say(['You remembered!',250,'That is right!']);save();qLater(1400)}else showMiss(q);return}
+function answer(ok){if(!RUN||RUN.locked||!RUN.q)return;const q=RUN.q;addTime();RUN.missed=RUN.missed||[];if(RUN.mode==='bonus'){RUN.locked=true;RUN.bonusN=(RUN.bonusN||0)+1;if(ok){RUN.bonusOk=(RUN.bonusOk||0)+1;gain(1);bump('bonus');RUN.earned++;const hc=$('#hc');if(hc)hc.textContent=S.hearts;sfx.good();buddyJump();burst();showFb('good',`<b>You remembered! That’s right!</b><span class="plus">+1 ${ICON.heart}</span>`);say(['You remembered!',250,'That is right!']);save();qLater(1400)}else showMiss(q);return}
  if(RUN.mode==='placement'){RUN.locked=true;RUN.planner.result(ok);RUN.results.push({skill:q.skill,ok});const hh=ok?2:1;gain(hh);RUN.earned+=hh;const h=$('#hc');if(h)h.textContent=S.hearts;save();if(ok){sfx.good();buddyJump();const r=$('.qcard').getBoundingClientRect();burst(r.left+r.width/2,r.top+120,26);showFb('good',`<b>${pick(PRAISE)} That’s right!</b><span class="plus">+2 ${ICON.heart}</span>`);qLater(1100)}else{RUN.missed.push(q);showMiss(q)}return}
  RUN.tries++;
  if(ok){RUN.locked=true;const first=RUN.tries===1,h=first?2:1;gain(h);RUN.earned+=h;finalize(first);sfx.good();buddyJump();const r=$('.qcard').getBoundingClientRect();burst(r.left+r.width/2,r.top+120,first?26:12);$('#hc').textContent=S.hearts;showFb('good',`<b>${pick(PRAISE)} That’s right!</b><span class="plus">+${h} ${ICON.heart}</span>`);qLater(1050)}
@@ -1023,7 +1024,7 @@ function sprintGo(){screen='sprint';RUN.end=Date.now()+60000;RUN.lastT=Date.now(
  app.innerHTML=`<div class="qwrap">${qbar('Fact Sprint',null)}<section class="box qcard"><div class="timer"><i id="tbar" style="width:100%"></i></div><div class="sprint-score">${ICON.bolt} <b id="sscore">0</b> correct</div><div class="prompt big" id="sq">${RUN.q.prompt}</div><div class="ans"><div class="numrow"><div class="numdisp" id="disp"></div></div>${keypad(false,true)}</div></section><div class="buddy" aria-hidden="true" id="buddy">${spr(S.current,'md')}</div></div>`;drawAll();updateInput();requestAnimationFrame(sprintTick)}
 function sprintTick(){if(screen!=='sprint'||!RUN||RUN.mode!=='sprint')return;const left=RUN.end-Date.now();const b=$('#tbar');if(b)b.style.width=Math.max(0,left/600)+'%';if(left<=0)return sprintEnd();requestAnimationFrame(sprintTick)}
 function sprintNextQ(){if(screen!=='sprint'||!RUN||RUN.mode!=='sprint')return;RUN.locked=false;RUN.q=mk('facts',S.skills.facts.level);A.buf='';$('#sq').innerHTML=RUN.q.prompt;const d=$('#disp');d.className='numdisp';updateInput()}
-function sprintCheck(){const s=String(RUN.q.answer);if(A.buf.length<s.length)return;const ok=A.buf===s,d=$('#disp');RUN.n++;RUN.results.push({skill:'facts',ok});const sk=S.skills.facts;sk.seen++;if(ok)sk.correct++;sk.recent.push(ok?1:0);if(sk.recent.length>20)sk.recent.shift();dayAdd('facts',ok);addTime();
+function sprintCheck(){if(!RUN||RUN.locked||screen!=='sprint'||!RUN.q)return;const s=String(RUN.q.answer);if(A.buf.length<s.length)return;const ok=A.buf===s,d=$('#disp');RUN.n++;RUN.results.push({skill:'facts',ok});const sk=S.skills.facts;sk.seen++;if(ok)sk.correct++;sk.recent.push(ok?1:0);if(sk.recent.length>20)sk.recent.shift();dayAdd('facts',ok);addTime();
  if(ok){bump('correct');bump('math');RUN.score++;gain(1);RUN.earned++;$('#sscore').textContent=RUN.score;$('#hc').textContent=S.hearts;d.classList.add('ok');tone([880,1175],.05);buddyJump();RUN.locked=true;setTimeout(sprintNextQ,160)}
  else{RUN.locked=true;d.classList.add('bad');d.textContent=`${RUN.q.prompt.replace('?','')}${s}`;sfx.bad();setTimeout(sprintNextQ,900)}}
 function sprintEnd(){screen='summary';addTime();const sk=S.skills.facts,a=RUN.n?RUN.score/RUN.n:0;if(RUN.n>=8&&a>=.9&&RUN.score>=12&&sk.level<5){sk.level++;RUN.ups.push('facts');bump('levelups')}else if(RUN.n>=5&&a<.6&&sk.level>1)sk.level--;
@@ -1107,7 +1108,7 @@ async function qwSend(){if(QW.busy)return;const hand=QW.mode==='hand';let t='';
  QW.busy=true;addTime();$('#coachArea').innerHTML=`<div class="loading">${spr('owl','sm','bob')}<b>Coach Hoot is reading your ${hand?'handwriting':'writing'}…</b></div>`;drawAll();$$('[data-act="qw-send"],[data-act="qw-done"]').forEach(b=>b.disabled=true);
  let fb;if(hand){fb=await coachHand(await hwBlob(),QW.p.t,QW.goal);if(!fb){QW.busy=false;QW.fb={self:true,checks:[false,false,false,false]};if(!QW.entry){bump('writes');bump('hand');QW.entry={d:today(),p:QW.p.t,kind:QW.p.kind,first:'(handwritten, checked by her own checklist)',fb0:{stars:1,glow:'Wrote by hand.',grow:'',rubric:{}},final:null,fb:null,hand:true,base:!!(RUN&&RUN.mode==='placement')};S.writing.push(QW.entry);if(S.writing.length>20)S.writing.shift()}save();renderQW();return}t=fb.transcript||'(handwritten)'}
  else fb=await coach(t,QW.p.t,QW.goal);
- QW.busy=false;const revising=!!(QW.fb&&!QW.fb.self);if(!revising){bump('writes');if(hand)bump('hand')}QW.fb=fb;const earn=revising?3:fb.stars*2+2+(hand?2:0);gain(earn);if(RUN)RUN.earned+=earn;
+ QW.busy=false;const revising=!!(QW.fb&&!QW.fb.self);if(!revising&&!QW.entry){bump('writes');if(hand)bump('hand')}QW.fb=fb;const earn=revising?3:fb.stars*2+2+(hand?2:0);gain(earn);if(RUN)RUN.earned+=earn;
  if(!QW.entry){QW.entry={d:today(),p:QW.p.t,kind:QW.p.kind,first:t,fb0:fb,final:null,fb:null,hand,base:!!(RUN&&RUN.mode==='placement')};S.writing.push(QW.entry);if(S.writing.length>20)S.writing.shift()}else{QW.entry.final=t;QW.entry.fb=fb;if(hand)QW.entry.hand=true}
  addTime();save();renderQW();sfx.good();burst(innerWidth/2,innerHeight*.35,fb.stars*10);toast(`+${earn} hearts from Coach Hoot${hand&&!revising?' (+2 for handwriting!)':''}`)}
 
@@ -1512,7 +1513,7 @@ Object.assign(ACT,{
   const pets=CFG.pets(),pet=pets[DU.pet];S.scene=S.scene||{bg:CFG.items.bg[0].id,decor:[]};
   if(WEAR_SLOTS.includes(it.slot)){if(!pet){toast(CFG.noPets);return}S.outfit=S.outfit||{};const w={...(S.outfit[pet.key]||{})};w[it.slot]=w[it.slot]===it.id?null:it.id;S.outfit[pet.key]=w;if(w[it.slot])tone([660,990],.06,'triangle')}
   else if(it.slot==='bg'){S.scene.bg=it.id;tone([520,780],.06,'triangle')}
-  else{const d=S.scene.decor.slice();const i=d.indexOf(it.id);if(i>=0)d.splice(i,1);else{d.push(it.id);if(d.length>3){const g=d.shift(),gi=CFG.items.decor.find(x=>x.id===g);toast(`Only 3 decorations fit — took off the ${esc(gi?gi.name:g)}`)}}S.scene.decor=d;tone([600,900],.05,'triangle')}
+  else{const d=S.scene.decor.slice();const i=d.indexOf(it.id);if(i>=0)d.splice(i,1);else{d.push(it.id);if(d.length>3){const g=d.shift(),gi=CFG.items.decor.find(x=>x.id===g);toast(`Only 3 decorations fit, so I took off the ${esc(gi?gi.name:g)}.`)}}S.scene.decor=d;tone([600,900],.05,'triangle')}
   save();renderDress()},
 });
 const LOCK_TXT='Locked:';

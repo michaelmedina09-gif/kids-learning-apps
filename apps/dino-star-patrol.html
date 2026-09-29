@@ -331,7 +331,7 @@ td.std{font-size:12px;color:var(--muted)}
 @keyframes spinme{to{transform:rotate(360deg)}}.spinme{animation:spinme 1.6s linear infinite;transform-box:fill-box;transform-origin:center}
 
 /* ---- QA fixes ---- */
-.toast{pointer-events:none}
+.toast{pointer-events:none;width:max-content}
 @media (max-width:640px){.toast{bottom:auto;top:calc(10px + env(safe-area-inset-top,0px))}}
 .iconbtn.sm{width:44px;height:44px;min-width:44px;flex:none;border-radius:13px}
 .iconbtn.sm .ic,.iconbtn.sm svg{width:22px;height:22px}
@@ -753,7 +753,7 @@ function stairPlanner(spec,start=2){let i=0,st=null,count=0;const total=spec.red
   result(ok){count++;const sp=spec[i];if(ok)st.best=Math.max(st.best,st.L);st.step++;if(st.step>=sp.steps){const s=S.skills[sp.id],lvl=Math.max(1,st.best);s.level=lvl;s.placed=lvl;s.hist=[];s.since=0;st=null;i++}else st.L=ok?Math.min(5,st.L+1):Math.max(1,st.L-1)}}}
 function listPlanner(list){let i=0;return{total:list.length,pos:()=>i-(RUN&&RUN.q&&!RUN.locked?1:0),next(){if(i>=list.length)return null;const it=list[i++];const id=typeof it==='string'?it:it.skill;return mk(id,S.skills[id].level,it.word)},result(){}}}
 const RECENTQ=[];const qKey=q=>String(q.prompt||'')+'|'+String(q.fig||'')+'|'+String(q.type==='mc'?((q.choices||[]).find(c=>c.ok)||{}).h:q.answer);
-function mk(id,L,word){let q;for(let t=0;t<8;t++){q=GEN[id](L,word);q.skill=id;q.level=L;if(word||!RECENTQ.includes(qKey(q)))break}RECENTQ.push(qKey(q));if(RECENTQ.length>6)RECENTQ.shift();return q}
+function mk(id,L,word){const last=RECENTQ[RECENTQ.length-1];let q=null,alt=null,c;for(let t=0;t<12;t++){c=GEN[id](L,word);c.skill=id;c.level=L;const k=qKey(c);if(word||!RECENTQ.includes(k)){q=c;break}if(!alt&&k!==last)alt=c}q=q||alt||c;RECENTQ.push(qKey(q));if(RECENTQ.length>6)RECENTQ.shift();return q}
 function needScore(id){const s=S.skills[id],a=acc(id);return(5-s.level)+(1-(a===null?.6:a))*3+Math.random()*.8}
 function planMath(){const ids=MATH_IDS.map(id=>({id,w:needScore(id)})).sort((a,b)=>b.w-a.w).map(x=>x.id);const f=ids.slice(0,3),o=shuffle(ids.slice(3));return[f[0],f[1],o[0],f[2],f[0],o[1],f[1],f[2]]}
 function planRead(){const rev=Object.entries(S.missed).sort((a,b)=>b[1].miss-a[1].miss).slice(0,2).map(([w,m])=>({skill:m.skill,word:w}));const ids=READ_IDS.map(id=>({id,w:needScore(id)})).sort((a,b)=>b.w-a.w).map(x=>x.id);const base=[ids[0],ids[1],ids[2],ids[0],ids[3],ids[1],ids[2],ids[4]];return[...rev,...base].slice(0,8)}
@@ -788,7 +788,7 @@ function answerHTML(q){if(q.type==='num')return q.answer+(q.unit||'');if(q.type=
 function showFb(kind,html){const f=$('#fb');if(!f)return;f.className='fb '+kind;f.innerHTML=html;f.hidden=false;if(kind!=='good')f.scrollIntoView({behavior:REDUCED?'auto':'smooth',block:'nearest'})}
 const PRAISE=['Awesome!','You got it!','Great job!','Super star!','Out of this world!','Yes!','Rocket power!'];
 function buddyJump(){const b=$('#buddy .kw');if(b){b.classList.remove('jump');void b.offsetWidth;b.classList.add('jump')}}
-function answer(ok){if(RUN.locked)return;const q=RUN.q;addTime();RUN.missed=RUN.missed||[];if(RUN.mode==='bonus'){RUN.locked=true;RUN.bonusN=(RUN.bonusN||0)+1;if(ok){RUN.bonusOk=(RUN.bonusOk||0)+1;gain(1);bump('bonus');RUN.earned++;const hc=$('#hc');if(hc)hc.textContent=S.stars;sfx.good();buddyJump();burst();showFb('good',`<b>You remembered! That’s right!</b><span class="plus">+1 ${ICON.star}</span>`);say(['You remembered!',250,'That is right!']);save();qLater(1400)}else showMiss(q);return}
+function answer(ok){if(!RUN||RUN.locked||!RUN.q)return;const q=RUN.q;addTime();RUN.missed=RUN.missed||[];if(RUN.mode==='bonus'){RUN.locked=true;RUN.bonusN=(RUN.bonusN||0)+1;if(ok){RUN.bonusOk=(RUN.bonusOk||0)+1;gain(1);bump('bonus');RUN.earned++;const hc=$('#hc');if(hc)hc.textContent=S.stars;sfx.good();buddyJump();burst();showFb('good',`<b>You remembered! That’s right!</b><span class="plus">+1 ${ICON.star}</span>`);say(['You remembered!',250,'That is right!']);save();qLater(1400)}else showMiss(q);return}
  if(RUN.mode==='placement'){RUN.locked=true;RUN.planner.result(ok);RUN.results.push({skill:q.skill,ok});const hh=ok?2:1;gain(hh);RUN.earned+=hh;$('#hc').textContent=S.stars;save();if(ok){const p=pick(PRAISE);sfx.good();buddyJump();const r=$('.qcard').getBoundingClientRect();burst(r.left+r.width/2,r.top+140,30);showFb('good',`<b>${p} That’s right!</b><span class="plus">+2 ${ICON.star}</span>`);say([p,250,'That is right!']);qLater(1500)}else{RUN.missed.push(q);showMiss(q)}return}
  RUN.tries++;
  if(ok){RUN.locked=true;const first=RUN.tries===1,h=first?2:1;gain(h);RUN.earned+=h;finalize(first);sfx.good();buddyJump();const r=$('.qcard').getBoundingClientRect();burst(r.left+r.width/2,r.top+140,first?30:14);$('#hc').textContent=S.stars;const p=pick(PRAISE);showFb('good',`<b>${p} That’s right!</b><span class="plus">+${h} ${ICON.star}</span>`);say([p,250,'That is right!']);qLater(1500)}
@@ -814,7 +814,7 @@ function startBlast(){screen='blast-intro';RUN={mode:'blast',station:day().done.
 function blastGo(){screen='blast';RUN.end=Date.now()+60000;RUN.lastT=Date.now();app.innerHTML=`<div class="qwrap">${qbar('Meteor Blast',null)}<section class="box qcard"><div class="timer"><i id="tbar" style="width:100%"></i></div><div class="score">${ICON.star} <b id="bscore">0</b> zapped</div><div class="prompt big" id="bq"></div><div class="meteors" id="mets"></div></section><div class="buddy" aria-hidden="true" id="buddy">${crit(S.crew.length?S.crew[0].id:'rex','md')}</div></div>`;blastNext();requestAnimationFrame(blastTick)}
 function blastNext(){if(screen!=='blast'||!RUN||RUN.mode!=='blast')return;const f=blastFact();RUN.q={fact:f,skill:f.t.includes('+')?'add':'sub'};RUN.locked=false;$('#bq').textContent=`${f.t} = ?`;const ch=numChoices(f.ans,0,20);$('#mets').innerHTML=ch.map((c,i)=>`<button class="meteor" data-act="met" data-v="${c.h}">${c.h}</button>`).join('')}
 function blastTick(){if(screen!=='blast'||!RUN||RUN.mode!=='blast')return;const left=RUN.end-Date.now(),b=$('#tbar');if(b)b.style.width=Math.max(0,left/600)+'%';if(left<=0)return blastEnd();requestAnimationFrame(blastTick)}
-function blastHit(btn){if(RUN.locked)return;const ok=+btn.dataset.v===RUN.q.fact.ans;RUN.n++;const id=RUN.q.skill,sk=S.skills[id];sk.seen++;if(ok)sk.correct++;sk.recent.push(ok?1:0);if(sk.recent.length>20)sk.recent.shift();dayAdd(id,ok);addTime();RUN.results.push({skill:id,ok});
+function blastHit(btn){if(!RUN||RUN.locked||screen!=='blast'||!RUN.q)return;const ok=+btn.dataset.v===RUN.q.fact.ans;RUN.n++;const id=RUN.q.skill,sk=S.skills[id];sk.seen++;if(ok)sk.correct++;sk.recent.push(ok?1:0);if(sk.recent.length>20)sk.recent.shift();dayAdd(id,ok);addTime();RUN.results.push({skill:id,ok});
  if(ok){bump('correct');bump('math');RUN.score++;gain(1);RUN.earned++;$('#bscore').textContent=RUN.score;$('#hc').textContent=S.stars;btn.classList.add('hit');sfx.boom();const r=btn.getBoundingClientRect();burst(r.left+r.width/2,r.top+r.height/2,16);buddyJump();RUN.locked=true;setTimeout(blastNext,280)}
  else{RUN.locked=true;sfx.bad();$$('.meteor').forEach(m=>{if(+m.dataset.v===RUN.q.fact.ans)m.classList.add('hit');else m.classList.add('miss')});setTimeout(blastNext,900)}}
 function blastEnd(){screen='summary';addTime();['add','sub'].forEach(id=>{const rs=RUN.results.filter(r=>r.skill===id),n=rs.length,ok=rs.filter(r=>r.ok).length,a=n?ok/n:0,sk=S.skills[id];if(n>=8&&a>=.9&&RUN.score>=12&&sk.level<5){sk.level++;RUN.ups.push(id);bump('levelups')}else if(n>=5&&a<.6&&sk.level>1)sk.level--});S.best.blast=Math.max(S.best.blast,RUN.score);
@@ -1131,7 +1131,7 @@ Object.assign(ACT,{
   const pets=CFG.pets(),pet=pets[DU.pet];S.scene=S.scene||{bg:CFG.items.bg[0].id,decor:[]};
   if(WEAR_SLOTS.includes(it.slot)){if(!pet){toast(CFG.noPets);return}S.outfit=S.outfit||{};const w={...(S.outfit[pet.key]||{})};w[it.slot]=w[it.slot]===it.id?null:it.id;S.outfit[pet.key]=w;if(w[it.slot])tone([660,990],.06,'triangle')}
   else if(it.slot==='bg'){S.scene.bg=it.id;tone([520,780],.06,'triangle')}
-  else{const d=S.scene.decor.slice();const i=d.indexOf(it.id);if(i>=0)d.splice(i,1);else{d.push(it.id);if(d.length>3){const g=d.shift(),gi=CFG.items.decor.find(x=>x.id===g);toast(`Only 3 decorations fit — took off the ${esc(gi?gi.name:g)}`)}}S.scene.decor=d;tone([600,900],.05,'triangle')}
+  else{const d=S.scene.decor.slice();const i=d.indexOf(it.id);if(i>=0)d.splice(i,1);else{d.push(it.id);if(d.length>3){const g=d.shift(),gi=CFG.items.decor.find(x=>x.id===g);toast(`Only 3 decorations fit, so I took off the ${esc(gi?gi.name:g)}.`)}}S.scene.decor=d;tone([600,900],.05,'triangle')}
   save();renderDress()},
 });
 const LOCK_TXT='Locked:';
