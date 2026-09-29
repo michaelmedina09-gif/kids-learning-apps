@@ -1,0 +1,31 @@
+import {open,shot,answerQ,answerAny,fbText,SPEECH_MOCK} from './lib.mjs';import {placed} from './setup.mjs';
+// 1 sprint race
+{const p=await open('critter-cove.html','ipad',{init:SPEECH_MOCK});await placed(p);await p.evaluate(()=>startSprint());await p.click('[data-act="sprint-go"]');
+ for(let k=0;k<3;k++){const a=await p.evaluate(()=>String(RUN.q.answer));const b=await p.evaluate(()=>[RUN.score,RUN.n]);for(const ch of a)await p.click(`[data-act="key"][data-k="${ch}"]`);await p.evaluate(()=>document.querySelector('[data-act="key"][data-k="3"]').click());await p.waitForTimeout(400);console.log('sprint race',b,'->',await p.evaluate(()=>[RUN.score,RUN.n,RUN.results.slice(-1)[0].ok,A.buf]))}
+ await shot(p,'fix-critter-sprint-race',false);
+ // coach dedupe
+ console.log('coach fixes',JSON.stringify(await p.evaluate(()=>localCoach('I think sea turtles are the best becuase they are cool. i like them alot. they swim far',{n:4,trans:true}).fixes.map(f=>f.wrong+'>'+f.right))));
+ // showMiss double period + idk
+ console.log('face slot name',await p.evaluate(()=>SLOTNAME.face));
+ await p.evaluate(()=>{startStation('write')});await p.waitForTimeout(200);
+ const txt=await p.evaluate(()=>{for(let i=0;i<300;i++){const q=mk('runon',3);const c=q.choices&&q.choices.find(c=>c.ok);if(c&&/\.$/.test(c.h.replace(/<[^>]+>/g,''))){RUN.mode='bonus';RUN.q=q;RUN.locked=false;renderQ();answer(false);return document.querySelector('#fb').innerText.split('\n')[0]}}return 'none found'});console.log('showMiss text:',txt);
+ console.log(' errs',p.errs);await p.b.close()}
+// 2 quiz close after last answer still awards
+for(const f of ['critter-cove.html','dino-star-patrol.html']){const p=await open(f,'ipad',{init:SPEECH_MOCK});await placed(p);const id=await p.evaluate(()=>Object.keys(CFG.spec)[0]);
+ await p.evaluate(id=>openLearn(id),id);await p.click('#lQuiz');for(let k=0;k<3;k++){const idx=await p.evaluate(id=>{const q=CFG.spec[id].quiz.find(x=>x[0]===document.querySelector('.qq').innerText);return[...document.querySelectorAll('.qc button')].findIndex(b=>b.innerText===q[1])},id);await (await p.$$('.qc button'))[idx].click();if(k<2)await p.waitForTimeout(1900)}
+ await p.click('#lClose');const n0=await p.evaluate(()=>__spoken.length);await p.waitForTimeout(2200);console.log(f,'close after last answer: quiz passed',await p.evaluate(id=>S.quiz.includes(id),id),'wallet',await p.evaluate(()=>wallet()),'spoken after close',await p.evaluate(n=>__spoken.slice(n),n0));
+ // say-dress
+ await p.evaluate(()=>{if(S.crew)S.crew.push({id:'rex',name:'R'});DU.tab='hat';renderDress()});const n1=await p.evaluate(()=>__spoken.length);await p.click('.shophint [data-act="say-dress"]');await p.waitForTimeout(300);console.log(' say-dress:',(await p.evaluate(n=>__spoken.slice(n),n1)).join(' / ').slice(0,160));
+ await p.evaluate(()=>{DU.tab='goals';renderDress()});const n2=await p.evaluate(()=>__spoken.length);await p.click('.goalsum [data-act="say-dress"]');await p.waitForTimeout(300);console.log(' say-goals:',(await p.evaluate(n=>__spoken.slice(n),n2)).join(' / ').slice(0,220));
+ console.log(' errs',p.errs);await p.b.close()}
+// 3 dino: home speaker, blast per-skill, hint comma, hatch article, placement no immediate repeats
+{const p=await open('dino-star-patrol.html','ipad',{init:SPEECH_MOCK});await placed(p);
+ await p.evaluate(()=>{S.placement={math:false,read:false,at:null};save();render()});await shot(p,'fix-dino-home-launch-speaker',false);let n0=await p.evaluate(()=>__spoken.length);await p.click('[data-act="say-home"]');await p.waitForTimeout(300);console.log('say-home launch:',(await p.evaluate(n=>__spoken.slice(n),n0)).join(' / '));
+ await p.evaluate(()=>{S.placement={math:true,read:true,at:1};day().done.blast=true;save();render()});await shot(p,'fix-dino-home-mission-speaker',false);n0=await p.evaluate(()=>__spoken.length);await p.click('[data-act="say-home"]');await p.waitForTimeout(300);console.log('say-home mission:',(await p.evaluate(n=>__spoken.slice(n),n0)).join(' / '));
+ console.log('blast per-skill:',await p.evaluate(()=>{S.skills.add.level=2;S.skills.sub.level=3;RUN={mode:'blast',station:'bonus',title:'M',results:[],earned:0,ups:[],score:0,n:0};for(let i=0;i<14;i++){RUN.results.push({skill:'sub',ok:true});RUN.score++;RUN.n++}for(let i=0;i<3;i++){RUN.results.push({skill:'add',ok:true});RUN.score++;RUN.n++}screen='blast';blastEnd();return JSON.stringify({add:S.skills.add.level,sub:S.skills.sub.level,ups:RUN.ups,summaryUps:[...document.querySelectorAll('.up')].map(e=>e.innerText)})}));
+ console.log('fix hints:',await p.evaluate(()=>{const s=new Set();RUN={used:new Set()};for(let L=1;L<=5;L++)for(let i=0;i<60;i++){RUN.used=new Set();const q=mk('fix',L);if(q.hint)s.add(q.hint)}return[...s].filter(h=>/capital/.test(h))}));
+ console.log('articles:',await p.evaluate(()=>['shelly','sunny','rex'].map(id=>{S.hatching=id;S.eggStars=999;return id}).length));
+ const rep=await p.evaluate(()=>{let reps=0,tot=0;for(let t=0;t<30;t++){startCheck('math');let prev=null;while(RUN&&RUN.q&&screen==='q'){tot++;const k=RUN.q.prompt.replace(/<[^>]+>/g,'')+'|'+(RUN.q.fig||'');if(k===prev)reps++;prev=k;RUN.locked=false;answer(Math.random()<.7);if(RUN&&RUN.mode==='placement'){RUN.locked=false}const nb=document.querySelector('#fb [data-act="next"]');nextQ()}}return{reps,tot}});console.log('dino placement consecutive identical questions:',JSON.stringify(rep));
+ const rep2=await p.evaluate(()=>{let reps=0,tot=0;for(let t=0;t<40;t++){startStation('math');let prev=null;while(RUN&&RUN.q&&screen==='q'){tot++;const k=RUN.q.prompt.replace(/<[^>]+>/g,'')+'|'+(RUN.q.fig||'');if(k===prev)reps++;prev=k;nextQ()}}return{reps,tot}});console.log('dino Math Moonwalk consecutive identical:',JSON.stringify(rep2));
+ console.log(' errs',p.errs);await p.b.close()}
+{const p=await open('dino-star-patrol.html','ipad',{init:SPEECH_MOCK});await placed(p);for(const id of ['shelly','sunny']){await p.evaluate(id=>{S.hatching=id;S.eggStars=999;save();render()},id);await p.waitForTimeout(1900);console.log('hatch text:',await p.evaluate(()=>document.querySelector('#hatchRest p')?.innerText),'| spoken:',(await p.evaluate(()=>__spoken.filter(t=>/your new/.test(t)).slice(-1)[0])))}await p.b.close()}

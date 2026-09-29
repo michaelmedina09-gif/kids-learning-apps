@@ -1,0 +1,148 @@
+<title>Cove &amp; Patrol HQ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Lexend:wght@400;500;600&display=swap">
+<style>
+/* Layout: a studio production board — "waiting on you" first, then the kanban, then the team and weekly reports. */
+:root{
+ --bg:#f3f6f5;--surface:#ffffff;--ink:#17262a;--muted:#546a6f;--line:#d6e1df;
+ --lagoon:#0f8b82;--nebula:#6a4fd6;--sun:#e9a100;--alert:#c8364f;--ok:#2f8f4e;
+ --lagoon-soft:#dff2ef;--nebula-soft:#ebe6fb;--sun-soft:#fff2cf;--alert-soft:#fbe3e7;
+ --display:"Bricolage Grotesque",ui-rounded,system-ui,sans-serif;--body:"Lexend",system-ui,-apple-system,"Segoe UI",sans-serif;
+ color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1719;--surface:#162226;--ink:#e6f0ee;--muted:#9db1b3;--line:#2a3a3e;--lagoon:#3cc3b8;--nebula:#a592ff;--sun:#f3c04a;--alert:#ff7d93;--ok:#6fd08e;--lagoon-soft:#133a38;--nebula-soft:#262046;--sun-soft:#3a3016;--alert-soft:#3d1c24;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0e1719;--surface:#162226;--ink:#e6f0ee;--muted:#9db1b3;--line:#2a3a3e;--lagoon:#3cc3b8;--nebula:#a592ff;--sun:#f3c04a;--alert:#ff7d93;--ok:#6fd08e;--lagoon-soft:#133a38;--nebula-soft:#262046;--sun-soft:#3a3016;--alert-soft:#3d1c24;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:15px/1.5 var(--body);padding-inline:clamp(16px,3vw,32px);padding-block:24px 48px}
+.wrap{max-width:1240px;margin:0 auto;display:grid;gap:28px}
+h1,h2,h3{font-family:var(--display);margin:0;text-wrap:balance;letter-spacing:-.01em}
+h1{font-size:clamp(28px,4vw,40px);font-weight:800}
+h2{font-size:21px;font-weight:800}
+.lede{color:var(--muted);margin:6px 0 0;max-width:62ch}
+header{display:flex;flex-wrap:wrap;gap:16px;align-items:end;justify-content:space-between}
+.apps{display:flex;gap:8px;flex-wrap:wrap}
+.chip{border:1.5px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:9px 14px;font:500 14px var(--body);cursor:pointer;min-height:44px}
+.chip.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.chip:focus-visible,button:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--nebula);outline-offset:2px}
+.stats{display:flex;flex-wrap:wrap;gap:10px}
+.stat{display:flex;align-items:baseline;gap:8px;padding:8px 14px;border-radius:12px;background:var(--surface);border:1px solid var(--line);font-variant-numeric:tabular-nums}
+.stat b{font:800 20px var(--display)}.stat span{color:var(--muted);font-size:13px}
+/* waiting on you */
+.signoff{background:var(--sun-soft);border:1.5px solid var(--sun);border-radius:18px;padding:18px;display:grid;gap:12px}
+.signoff .row{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;background:var(--surface);border-radius:12px;padding:12px 14px}
+.signoff .row>div{min-width:0;flex:1 1 280px}
+.signoff p{margin:2px 0 0;color:var(--muted);font-size:14px}
+.btn{border:0;border-radius:10px;padding:10px 16px;font:600 14px var(--body);cursor:pointer;min-height:44px}
+.btn.go{background:var(--ok);color:#fff}.btn.no{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
+/* board */
+.board{display:grid;grid-template-columns:repeat(5,minmax(230px,1fr));gap:14px;overflow-x:auto;padding-bottom:6px}
+.col{background:color-mix(in srgb,var(--surface) 55%,var(--bg));border:1px solid var(--line);border-radius:16px;padding:12px;display:grid;align-content:start;gap:10px;min-width:0}
+.col h3{font-size:15px;display:flex;justify-content:space-between;align-items:center;font-family:var(--body);font-weight:600;letter-spacing:.02em}
+.col h3 i{font-style:normal;color:var(--muted);font-variant-numeric:tabular-nums}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:11px 12px;display:grid;gap:7px;text-align:left;font:inherit;color:inherit;cursor:pointer;border-left:5px solid var(--line)}
+.card.p1{border-left-color:var(--alert)}.card.p2{border-left-color:var(--sun)}.card.p3{border-left-color:var(--lagoon)}
+.card b{font-weight:600;line-height:1.3}
+.meta{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font-size:12px;padding:2px 8px;border-radius:999px;background:var(--lagoon-soft);color:var(--ink)}
+.tag.dino{background:var(--nebula-soft)}.tag.both{background:color-mix(in srgb,var(--lagoon-soft) 50%,var(--nebula-soft))}
+.tag.big{background:var(--sun-soft)}.tag.own{background:transparent;border:1px solid var(--line);color:var(--muted)}
+.empty{color:var(--muted);font-size:13px;padding:6px 2px}
+/* team */
+.team{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.agent{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px;display:grid;gap:6px}
+.agent header{display:flex;gap:10px;align-items:center;justify-content:flex-start}
+.dot{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;font:800 14px var(--display);color:#fff;flex:none}
+.agent p{margin:0;color:var(--muted);font-size:14px}
+.agent small{color:var(--muted);font-variant-numeric:tabular-nums}
+/* reports */
+.reports{display:grid;gap:12px}
+.report{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;display:grid;gap:8px}
+.report time{color:var(--muted);font-size:13px}
+.report div{white-space:pre-wrap;max-width:75ch}
+/* drawer */
+.scrim{position:fixed;inset:0;background:rgba(10,20,22,.45);display:grid;place-items:end center;padding:16px;z-index:5}
+.sheet{background:var(--surface);border-radius:18px;max-width:640px;width:100%;max-height:88vh;overflow:auto;padding:20px;display:grid;gap:14px;margin-bottom:env(safe-area-inset-bottom,0px)}
+.sheet .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+label{display:grid;gap:4px;font-size:13px;color:var(--muted)}
+select,textarea{font:15px var(--body);color:var(--ink);background:var(--bg);border:1.5px solid var(--line);border-radius:10px;padding:9px 10px;min-height:44px;width:100%}
+textarea{min-height:110px;resize:vertical}
+.detail{white-space:pre-wrap;margin:0}
+.note{color:var(--muted);font-size:13px}
+@media (prefers-reduced-motion:no-preference){.card{transition:transform .12s}.card:hover{transform:translateY(-2px)}}
+</style>
+
+<div class="wrap">
+ <header>
+  <div>
+   <h1>Cove &amp; Patrol HQ</h1>
+   <p class="lede">The project board for Critter Cove and Dino Star Patrol. The project manager agent keeps it current. Big features wait here for your sign-off before they're built.</p>
+  </div>
+  <div class="apps" role="group" aria-label="Filter by app">
+   <button class="chip on" data-app="all" id="f-all">Both apps</button>
+   <button class="chip" data-app="cove" id="f-cove">Critter Cove</button>
+   <button class="chip" data-app="dino" id="f-dino">Dino Star Patrol</button>
+  </div>
+ </header>
+ <div class="stats" id="stats"></div>
+ <section class="signoff" id="signoff" hidden aria-labelledby="so-h"><h2 id="so-h">Waiting on you</h2><div id="solist"></div></section>
+ <section aria-labelledby="b-h" style="display:grid;gap:12px"><h2 id="b-h">Board</h2><div class="board" id="board"><p class="empty">Loading the board…</p></div></section>
+ <section aria-labelledby="w-h" style="display:grid;gap:12px"><h2 id="w-h">Weekly check-ins</h2><div class="reports" id="reports"><p class="empty">The project manager posts a status here every Wednesday.</p></div></section>
+ <section aria-labelledby="t-h" style="display:grid;gap:12px"><h2 id="t-h">The team</h2><div class="team" id="team"></div></section>
+</div>
+<div class="scrim" id="scrim" hidden></div>
+
+<script>
+const COLS=[['backlog','Backlog'],['signoff','Needs your OK'],['doing','Building'],['testing','Testing'],['done','Shipped']];
+const APPN={cove:'Critter Cove',dino:'Dino Star Patrol',both:'Both apps'};
+const TEAM=[
+ ['pm','Project Manager','PM','var(--ink)','Keeps the board current, assigns work to each agent, runs the release checklist and posts the Wednesday check-in.'],
+ ['edu','Education Specialist','ED','var(--ok)','Grade 5 and grade 1 learning science: what raises scores and holds attention. Writes question banks, word lists and reading passages.'],
+ ['product','Product & Ideas','PR','var(--nebula)','Roadmap, feature specs, game design and rewards that support learning.'],
+ ['research','Research','RS','var(--sun)','Florida B.E.S.T. and FAST details, competitor apps, kid trends, privacy.'],
+ ['builder','Builder','BU','var(--lagoon)','Writes the code for both apps and keeps the source in GitHub.'],
+ ['qa','QA & Testing','QA','var(--alert)','Clicks through both apps on iPad and iPhone sizes, reports bugs with proof, re-tests every release.']];
+const OWN=Object.fromEntries(TEAM.map(t=>[t[0],t[1]]));
+let DB=null,TASKS=[],REPORTS=[],APP='all',OPEN=null;
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const vis=t=>APP==='all'||t.app===APP||t.app==='both';
+
+function render(){
+ const L=TASKS.filter(vis);
+ const n=k=>L.filter(t=>t.status===k).length;
+ $('#stats').innerHTML=[['Open',L.filter(t=>t.status!=='done').length],['Bugs open',L.filter(t=>t.kind==='bug'&&t.status!=='done').length],['Needs your OK',n('signoff')],['Shipped',n('done')]].map(([l,v])=>`<div class="stat"><b>${v}</b><span>${l}</span></div>`).join('');
+ const so=L.filter(t=>t.status==='signoff');$('#signoff').hidden=!so.length;
+ $('#solist').innerHTML=so.map(t=>`<div class="row"><div><b>${esc(t.title)}</b><p>${esc(APPN[t.app]||'')}${t.why?' · '+esc(t.why):''}</p></div><div style="display:flex;gap:8px;flex:none"><button class="btn no" data-open="${t.id}">Details</button><button class="btn go" data-ok="${t.id}">Approve</button></div></div>`).join('');
+ $('#board').innerHTML=COLS.map(([k,l])=>{const c=L.filter(t=>t.status===k).sort((a,b)=>(a.pri||3)-(b.pri||3)||(b.updated||0)-(a.updated||0));
+  return`<div class="col"><h3>${l}<i>${c.length}</i></h3>${c.map(card).join('')||'<p class="empty">Nothing here.</p>'}</div>`}).join('');
+ $('#reports').innerHTML=REPORTS.length?REPORTS.map(r=>`<article class="report"><h3>${esc(r.title||'Weekly check-in')}</h3><time>${esc(r.date||'')}</time><div>${esc(r.body||'')}</div></article>`).join(''):'<p class="empty">The project manager posts a status here every Wednesday.</p>';
+}
+function card(t){return`<button class="card p${t.pri||3}" data-open="${t.id}"><b>${esc(t.title)}</b><span class="meta"><span class="tag ${t.app}">${esc(APPN[t.app]||t.app)}</span>${t.big?'<span class="tag big">Big feature</span>':''}<span class="tag own">${esc(OWN[t.owner]||'Unassigned')}</span></span></button>`}
+function renderTeam(){$('#team').innerHTML=TEAM.map(([id,n,ab,c,d])=>{const act=TASKS.filter(t=>t.owner===id&&t.status!=='done').length;return`<div class="agent"><header><span class="dot" style="background:${c}">${ab}</span><h3 style="font-size:16px">${n}</h3></header><p>${d}</p><small>${act} open task${act===1?'':'s'}</small></div>`}).join('')}
+
+function openTask(id){const t=TASKS.find(x=>x.id===id);if(!t)return;OPEN=id;const s=$('#scrim');s.hidden=false;
+ s.innerHTML=`<div class="sheet" role="dialog" aria-modal="true" aria-labelledby="d-h"><div style="display:flex;justify-content:space-between;gap:12px;align-items:start"><h2 id="d-h">${esc(t.title)}</h2><button class="btn no" id="d-x">Close</button></div>
+ <div class="meta"><span class="tag ${t.app}">${esc(APPN[t.app]||t.app)}</span>${t.kind?`<span class="tag own">${esc(t.kind)}</span>`:''}${t.big?'<span class="tag big">Big feature, needs your OK</span>':''}${t.approved?'<span class="tag">Approved</span>':''}</div>
+ ${t.why?`<p class="detail"><b>Why it matters:</b> ${esc(t.why)}</p>`:''}${t.detail?`<p class="detail">${esc(t.detail)}</p>`:''}${t.source?`<p class="note">From: ${esc(t.source)}</p>`:''}
+ <div class="grid"><label for="d-status">Status<select id="d-status">${COLS.map(([k,l])=>`<option value="${k}" ${t.status===k?'selected':''}>${l}</option>`).join('')}</select></label>
+ <label for="d-pri">Priority<select id="d-pri">${[[1,'High'],[2,'Medium'],[3,'Low']].map(([v,l])=>`<option value="${v}" ${(t.pri||3)==v?'selected':''}>${l}</option>`).join('')}</select></label>
+ <label for="d-owner">Owner<select id="d-owner">${TEAM.map(([k,n])=>`<option value="${k}" ${t.owner===k?'selected':''}>${n}</option>`).join('')}</select></label></div>
+ <label for="d-note">Your note for the team<textarea id="d-note" placeholder="Anything the kids said, what to change, or why to wait.">${esc(t.parentNote||'')}</textarea></label>
+ <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end">${t.status==='signoff'?`<button class="btn no" id="d-hold">Not now</button><button class="btn go" id="d-ok">Approve</button>`:''}<button class="btn go" id="d-save">Save</button></div><p class="note" id="d-msg" aria-live="polite"></p></div>`;
+ $('#d-x').onclick=close;$('#d-save').onclick=()=>save(t.id,{status:$('#d-status').value,pri:+$('#d-pri').value,owner:$('#d-owner').value,parentNote:$('#d-note').value});
+ if($('#d-ok'))$('#d-ok').onclick=()=>save(t.id,{status:'backlog',approved:true,parentNote:$('#d-note').value});
+ if($('#d-hold'))$('#d-hold').onclick=()=>save(t.id,{status:'backlog',approved:false,held:true,parentNote:$('#d-note').value});}
+function close(){$('#scrim').hidden=true;$('#scrim').innerHTML='';OPEN=null}
+async function save(id,patch){if(!DB){$('#d-msg').textContent='The board is read-only right now. Try reopening the page.';return}
+ try{await DB.doc('tasks/'+id).update({...patch,updated:Date.now()});close()}catch(e){const m=$('#d-msg');if(m)m.textContent=e&&e.code==='invalid_argument'?'You can view this board but not change it. Ask the owner to make you a Contributor.':'Couldn’t save. Check your connection and try again.'}}
+document.addEventListener('click',e=>{const a=e.target.closest('[data-app]');if(a){APP=a.dataset.app;document.querySelectorAll('[data-app]').forEach(b=>b.classList.toggle('on',b===a));render();return}
+ const o=e.target.closest('[data-open]');if(o){openTask(o.dataset.open);return}
+ const ok=e.target.closest('[data-ok]');if(ok){if(DB)DB.doc('tasks/'+ok.dataset.ok).update({status:'backlog',approved:true,updated:Date.now()}).catch(()=>{});return}
+ if(e.target.id==='scrim')close()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&OPEN)close()});
+renderTeam();
+(async()=>{try{DB=await window.claude?.use?.('db')}catch(e){DB=null}
+ if(!DB){$('#board').innerHTML='<p class="empty">The board data isn’t available in this view. Open it from claude.ai to see the live board.</p>';return}
+ DB.collection('tasks').onSnapshot(s=>{TASKS=s.docs.map(d=>({id:d.id,...d.data()}));render();renderTeam()},()=>{$('#board').innerHTML='<p class="empty">Lost the connection to the board. Reload the page.</p>'});
+ DB.collection('reports').orderBy('ts','desc').limit(8).onSnapshot(s=>{REPORTS=s.docs.map(d=>d.data());render()},()=>{});
+})();
+</script>

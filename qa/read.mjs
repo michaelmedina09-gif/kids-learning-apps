@@ -1,0 +1,17 @@
+import {open,SPEECH_MOCK} from './lib.mjs';import {placed} from './setup.mjs';
+const p=await open('dino-star-patrol.html','ipad',{init:SPEECH_MOCK});await placed(p);await p.evaluate(()=>{S.crew.push({id:'rex',name:'Rex'});save()});
+const texts=new Set();const grab=async()=>{(await p.evaluate(()=>[...document.querySelectorAll('h1,h2,p,button,.prompt,.sub,.fb,li,.qq,.qn,span')].filter(e=>e.offsetParent&&e.children.length<3).map(e=>e.innerText.trim()).filter(t=>t.length>12))).forEach(t=>texts.add(t.replace(/\s+/g,' ')))};
+await p.evaluate(()=>{S=null;renderWelcome()});await grab();await p.evaluate(()=>{S=newState('L');save();renderChoose()});await grab();
+await p.evaluate(()=>{S.egg='sky';save();renderHome()});await grab();
+await p.evaluate(()=>{S.placement={math:true,read:true,at:1};save();renderHome()});await grab();
+await p.evaluate(()=>{S.crew.push({id:'rex',name:'Rex'});DU.tab='hat';renderDress()});await grab();await p.evaluate(()=>{DU.tab='goals';renderDress()});await grab();
+await p.evaluate(()=>renderGuide());await grab();await p.evaluate(()=>openLearn('rex'));await grab();await p.evaluate(()=>{document.querySelector('#modal').hidden=true;startBlast()});await grab();
+const qs=await p.evaluate(()=>{const out=new Set();RUN={used:new Set()};for(const id of Object.keys(SK))for(let L=1;L<=5;L++)for(let k=0;k<25;k++){try{RUN.used=new Set();const q=mk(id,L);out.add(id+'|'+String(q.prompt).replace(/<[^>]+>/g,' ').replace(/\s+/g,' ').trim());if(q.sub)out.add(id+'|sub: '+String(q.sub).replace(/<[^>]+>/g,' ').trim());if(q.hint)out.add(id+'|hint: '+String(q.hint).replace(/<[^>]+>/g,' ').trim())}catch(e){}}return[...out]});
+const syl=w=>{w=w.toLowerCase().replace(/[^a-z]/g,'');if(w.length<=3)return 1;w=w.replace(/(?:[^laeiouy]es|ed|[^laeiouy]e)$/,'').replace(/^y/,'');const m=w.match(/[aeiouy]{1,2}/g);return m?m.length:1};
+const fk=t=>{const s=Math.max(1,(t.match(/[.!?]+/g)||[]).length);const ws=t.match(/[A-Za-z’']+/g)||[];if(!ws.length)return 0;const sy=ws.reduce((a,w)=>a+syl(w),0);return 0.39*ws.length/s+11.8*sy/ws.length-15.59};
+const hard=t=>(t.match(/[A-Za-z]+/g)||[]).filter(w=>syl(w)>=3&&!/dinosaur|Tyrannosaurus|Brontosaurus|Velociraptor|Stegosaurus|Triceratops|Ankylosaurus|Spinosaurus|Pteranodon|Parasaurolophus|Pachycephalosaurus|Diplodocus/i.test(w));
+const ui=[...texts].map(t=>({t,g:fk(t),h:hard(t)})).filter(x=>x.g>3||x.h.length).sort((a,b)=>b.g-a.g);
+console.log('UI strings above ~grade 3 or with 3+ syllable words:');ui.slice(0,45).forEach(x=>console.log(` [${x.g.toFixed(1)}] ${x.t.slice(0,150)}  {${x.h.join(',')}}`));
+const qq=qs.map(s=>{const [id,t]=s.split('|');return{id,t,g:fk(t),h:hard(t)}}).filter(x=>x.g>3||x.h.length);const seen=new Set();
+console.log('\nQuestion prompts/hints above ~grade 3:');qq.sort((a,b)=>b.g-a.g).forEach(x=>{const key=x.t.replace(/\d+/g,'#').slice(0,50);if(seen.has(key))return;seen.add(key);if(seen.size<40)console.log(` [${x.g.toFixed(1)}] ${x.id}: ${x.t.slice(0,140)} {${x.h.join(',')}}`)});
+await p.b.close();

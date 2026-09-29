@@ -1,0 +1,26 @@
+.qlayout{display:grid;gap:16px;align-items:start}
+.qlayout.with-pad{grid-template-columns:minmax(0,1fr) minmax(0,1.05fr)}
+@media (max-width:900px){.qlayout.with-pad{grid-template-columns:1fr}}
+.qlayout.with-pad .prompt.big{font-size:44px}
+.qlayout.with-pad ~ .buddy{display:none}
+.pad{padding:14px;display:flex;flex-direction:column;gap:10px;position:sticky;top:calc(10px + env(safe-area-inset-top,0px))}
+.padbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.padbar .seg{display:flex;gap:6px;padding:4px;border-radius:14px;background:#f4ede1}
+.tool{width:44px;height:44px;border-radius:11px;border:2px solid transparent;background:#fff;display:grid;place-items:center;padding:0}
+.tool i{width:20px;height:20px;border-radius:50%;display:block}
+.tool.on,.tbtn.on{border-color:var(--teal);box-shadow:0 0 0 3px var(--teal-l)}
+.tbtn{min-height:44px;padding:0 12px;border-radius:11px;border:2px solid transparent;background:#fff;font-size:15px;font-weight:600;color:var(--ink)}
+.tbtn[disabled]{opacity:.4;pointer-events:none}
+.tbtn.nl{background:var(--teal-l);color:var(--teal-d)}
+.nlform{display:flex;flex-direction:column;gap:8px;background:var(--sky);border-radius:14px;padding:10px 12px;font-size:14px}
+.nlform .presets,.nlform .custom{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.nlform .presets .tbtn{min-height:38px;font-size:14px}
+.nlform label{display:flex;align-items:center;gap:4px;font-weight:600}
+.nlform input{width:64px;font:600 16px "Lexend",sans-serif;border:2px solid var(--line);border-radius:10px;padding:6px 8px;background:#fff;color:var(--ink)}
+.padwrap{position:relative;height:clamp(340px,56vh,580px);border-radius:16px;overflow:hidden;background-color:#fff;border:2px solid var(--line)}
+.padwrap.grid{background-image:linear-gradient(#e6edf1 1px,transparent 1px),linear-gradient(90deg,#e6edf1 1px,transparent 1px);background-size:26px 26px}
+.padwrap canvas{position:absolute;inset:0;width:100%;height:100%}
+#ink{touch-action:none;cursor:crosshair}
+.padhint{position:absolute;left:12px;bottom:10px;right:12px;font-size:14px;color:var(--muted);pointer-events:none}
+.qtop .padtoggle{margin-left:auto}
+.qtop .padtoggle+.iconbtn{margin-left:0}

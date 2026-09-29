@@ -1,0 +1,1 @@
+cd /home/claude/cove && for f in critter-cove.html dino-star-patrol.html; do { printf '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><base href="file:///home/claude/cove/">\n'; cat $f; printf '\n</head></html>'; } > qa/wrap/$f; done

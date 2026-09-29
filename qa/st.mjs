@@ -1,0 +1,3 @@
+import {open,shot} from './lib.mjs';import {placed} from './setup.mjs';
+for(const f of ['critter-cove.html','dino-star-patrol.html'])for(const vp of ['iphone','ipadair']){const p=await open(f,vp);await placed(p);await p.evaluate(()=>{if(S.crew)S.crew.push({id:'rex',name:'Rexy'});save();ACT.dress()});await p.waitForTimeout(300);await p.evaluate(()=>scrollTo(0,1500));await p.waitForTimeout(200);
+await p.screenshot({path:`/home/claude/cove/qa/shots/${f.split('-')[0]}-${vp}-dress-scrolled.png`});console.log(f,vp,await p.evaluate(()=>{const s=document.querySelector('.stagebox');const r=s.getBoundingClientRect();return [getComputedStyle(s).position,Math.round(r.top),Math.round(r.height)]}));await p.b.close()}

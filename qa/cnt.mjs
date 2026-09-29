@@ -1,0 +1,6 @@
+import {open,shot} from './lib.mjs';import {placed} from './setup.mjs';
+for(const vp of ['ipad','ipadair','iphone']){const p=await open('dino-star-patrol.html',vp);await placed(p);
+ const r=await p.evaluate(()=>{let worst=0,wq=null;for(let L=1;L<=5;L++)for(let k=0;k<60;k++){const q=mk('count',L);RUN={mode:'practice',station:'math',title:'T',planner:{pos:()=>0,total:1,next:()=>null},results:[],earned:0,ups:[]};RUN.q=q;RUN.tries=0;RUN.locked=false;A={buf:'',pick:[]};renderQ();const sw=document.documentElement.scrollWidth;if(sw>worst){worst=sw;wq=[L,q.prompt,q.answer]}}return[innerWidth,worst,wq]}).catch(e=>'ERR '+e.message);
+ console.log(vp,JSON.stringify(r));await p.b.close()}
+for(const f of ['critter-cove.html','dino-star-patrol.html']){const p=await open(f,'iphone');await placed(p);const res=await p.evaluate(()=>Object.keys(CFG.spec).map(id=>{openLearn(id);const b=document.querySelector('#lClose').getBoundingClientRect();return b.right>innerWidth?`${id}:${Math.round(b.right)}`:null}).filter(Boolean));console.log(f,'close btn off-screen on iPhone:',res);
+ await p.evaluate(()=>openLearn(Object.keys(CFG.spec).find(i=>/rex|dolphin/.test(i))));await p.waitForTimeout(300);await shot(p,f.split('-')[0]+'-iphone-learn-close',false);await p.b.close()}

@@ -1,0 +1,21 @@
+import {open,shot,btns,text,answerQ,fbText,SPEECH_MOCK} from './lib.mjs';import {placed} from './setup.mjs';
+const vp=process.argv[2]||'ipad';
+const p=await open('critter-cove.html',vp,{init:SPEECH_MOCK});
+await placed(p,{hand:'off'});
+await shot(p,`critter-home-placed-${vp}`);console.log(await text(p));console.log(await btns(p));
+await p.click('[data-act="start-station"][data-st="write"]');await p.waitForTimeout(300);
+let n=0;while(await p.evaluate(()=>screen)==='q'){const q=await answerQ(p,true);await p.waitForTimeout(1300);n++}
+console.log('after',n,'q screen',await p.evaluate(()=>screen));
+await p.click('[data-act="qw-send"]');await p.waitForTimeout(200);console.log('short send toast',await p.evaluate(()=>[...document.querySelectorAll('.toast')].map(t=>t.innerText)));
+await p.click('[data-act="qw-starter"]');await p.waitForTimeout(100);
+await p.type('#qwText','sea turtles are the best becuase they are cool. i like them alot. they swim far');
+await p.waitForTimeout(200);await shot(p,`critter-qw-typed-${vp}`,false);
+const h0=await p.evaluate(()=>S.hearts);await p.click('[data-act="qw-send"]');await p.waitForTimeout(1200);
+console.log('hearts',h0,'->',await p.evaluate(()=>S.hearts));await shot(p,`critter-qw-fb-${vp}`);
+console.log(await p.evaluate(()=>document.querySelector('#coachArea').innerText));console.log(await btns(p));
+await p.fill('#qwText','Sea turtles are the best because they are cool. For example, they swim very far. I like them a lot. They are also very old animals.');
+await p.dispatchEvent('#qwText','input');
+const h1=await p.evaluate(()=>S.hearts);await p.click('[data-act="qw-send"]');await p.waitForTimeout(1200);console.log('revise hearts',h1,'->',await p.evaluate(()=>S.hearts));
+console.log(await p.evaluate(()=>document.querySelector('#coachArea').innerText));
+await p.click('[data-act="qw-done"]');await p.waitForTimeout(400);console.log('screen',await p.evaluate(()=>screen));console.log(await text(p));await shot(p,`critter-write-summary-${vp}`);
+console.log(p.errs);await p.b.close();
