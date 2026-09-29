@@ -142,3 +142,13 @@ td.rsum{min-width:220px;max-width:420px;white-space:normal;overflow-wrap:anywher
 .rv-note{margin:12px 0 0;font-size:15px;color:var(--ink2);display:flex;gap:6px;align-items:center;background:var(--gold-l);border-radius:12px;padding:8px 12px}
 .rv-note .ic{width:18px;height:18px}
 .starter{min-height:44px}
+/* QA round 2 fixes */
+.bc-steps li.done span{background:var(--mint-l);color:#155c42}
+.settings input{min-height:44px}
+.bc-thumbs{display:flex;gap:10px;flex-wrap:wrap}
+.bc-storybtn{text-align:left;background:var(--sky);border:0;border-radius:12px;padding:10px 12px;font-size:15px;line-height:1.45;min-height:44px;overflow-wrap:anywhere;color:var(--ink)}
+.choices{grid-template-columns:repeat(2,minmax(0,1fr))}
+.choices.one{grid-template-columns:minmax(0,1fr)}
+.choice{min-width:0;overflow-wrap:break-word}
+@media (max-width:480px){.choices:not(.one) .choice{font-size:24px;padding:12px 8px;letter-spacing:0}.choices.wide:not(.one){grid-template-columns:minmax(0,1fr)}.choices.wide:not(.one) .choice{font-size:26px}}
+@media (max-width:340px){.choices:not(.one){grid-template-columns:minmax(0,1fr)}}
