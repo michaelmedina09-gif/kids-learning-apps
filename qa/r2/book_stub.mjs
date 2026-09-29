@@ -1,0 +1,49 @@
+// Book Club with a stubbed window.claude: grounded questions, ungrounded ones dropped, page photo, handwriting, art in its own db doc
+import {open,shot,SPEECH_MOCK,overflow} from './lib.mjs';import {setup,draw,toastText} from './common.mjs';import {STUB} from './stubs.mjs';
+const vp=process.argv[2]||'ipad';const P='bc-stub-'+vp+'-';const out=[];const ok=(c,m)=>{out.push((c?'PASS ':'FAIL ')+m);if(!c)process.exitCode=1};
+const p=await open(vp,{init:[SPEECH_MOCK,STUB]});await p.waitForTimeout(300);await setup(p);
+await p.click('[data-act="bookclub"]');await p.click('[data-act="bc-add"]');await p.fill('#bTitle','The Glow Lantern');await p.fill('#bAuthor','A. Writer');await p.fill('#bCh','12');await p.click('[data-act="bc-color"][data-c="#8f6bff"]');await p.click('[data-act="bc-save-book"]');
+await p.click('[data-act="bc-log"]');await p.fill('#bcText','Mara found a strange box in the storroom because the lights went out.');await p.click('[data-act="bc-send"]');
+await p.waitForSelector('#bcCoach .coach');const fb=await p.evaluate(()=>BC.draft.fb);
+ok(fb.src==='coach'&&fb.glow.startsWith('You told who'),'AI glow used');ok(!/Lina/.test(fb.grow),'ungrounded AI grow (mentions Lina) replaced: '+fb.grow);ok(fb.fixes.length===1&&fb.fixes[0].right==='storeroom','spelling fix kept');
+await shot(p,P+'01-log-ai');
+await p.click('[data-act="bc-to-think"]');
+const buf=await p.screenshot({clip:{x:0,y:0,width:300,height:400}});await p.setInputFiles('#bcPhoto',{name:'page.png',mimeType:'image/png',buffer:buf});await p.waitForSelector('.bc-photoprev img');
+await shot(p,P+'02-think-photo');
+await p.click('[data-act="bc-ask"]');await p.waitForSelector('.bc-q');
+const t=await p.evaluate(()=>({qs:BC.think.qs,dropped:BC.think.dropped,src:BC.think.src}));
+ok(t.src==='coach','AI path used');ok(t.qs.length===3,'3 questions shown');ok(t.dropped===4,'4 ungrounded questions dropped (grounded:false, unknown name, unquoted golden key, quote + invented key): '+t.dropped);
+ok(!t.qs.some(q=>/Lina|Doon|Pipeworks|golden|bridge/.test(q.q)),'no invented names in questions: '+t.qs.map(q=>q.q).join(' / '));
+ok(t.qs[0].q.includes('Mara')&&t.qs[1].q.includes('lights went out'),'grounded questions kept');
+const qp=await p.evaluate(()=>window.__prompts.find(x=>/Write 3 short, fun questions/.test(x.prompt)));ok(qp&&qp.images,'page photo sent as image (limits().images true)');ok(!/Glow Lantern|A\. Writer|Mia/.test(qp.prompt),'no title/author/name sent to AI');
+for(const [i,ta] of (await p.$$('.bc-ans')).entries())await ta.fill(['Because she was curious and brave.','She felt scared.','I think she will open it.'][i]);
+if(await p.$('.bc-word'))await p.fill('.bc-word','strange');
+await p.click('[data-act="bc-share"]');await p.waitForSelector('.bc-reply');const reps=await p.evaluate(()=>BC.think.replies);
+ok(reps[0].includes('Mara')&&!/Doon/.test(reps[1]),'AI reply with invented name replaced by local reply: '+reps.join(' / '));
+await shot(p,P+'03-think-replies');
+await p.click('[data-act="bc-to-make"]');await p.click('[data-act="bc-make-kind"][data-k="draw"]');await draw(p);await p.click('[data-act="dr-save"]');await p.waitForTimeout(400);
+const tt=await toastText(p);ok(/gallery/i.test(tt)&&!/device only/.test(tt),'saved remotely toast: '+tt);
+const art=await p.evaluate(()=>{const e=S.books[0].log[0];const d=window.__db['cove_art/'+e.artId];return d&&{kind:d.kind,len:d.data.length,jpeg:d.data.startsWith('data:image/jpeg')}});
+ok(art&&art.kind==='draw'&&art.jpeg&&art.len<80000,'drawing in its own db doc cove_art/<id>: '+JSON.stringify(art));
+// story for the same chapter
+await p.click('[data-act="bc-make"][data-i="0"]');await p.click('[data-act="bc-make-kind"][data-k="story"]');await p.fill('#bcStory','One day, Mara took the box to the roof. Suddenly it began to glow. In the end she used it as a lamp for her whole street.');
+await p.evaluate(()=>window.__evilStory=true);await p.click('[data-act="st-coach"]');await p.waitForSelector('#bcCoach .coach');await shot(p,P+'04-story-coach');
+const sfb=await p.evaluate(()=>document.querySelector('#bcCoach').innerText);ok(!/Lina|Ember|real book|twelve|keys/.test(sfb),'side-story coach text grounded (invented book facts replaced): '+sfb.replace(/\n/g,' | ').slice(0,150));await p.evaluate(()=>window.__evilStory=false);
+await p.click('[data-act="st-save"]');await p.waitForTimeout(200);
+// make another drawing + another story: nothing overwritten
+await p.click('[data-act="bc-make"][data-i="0"]');await p.click('[data-act="bc-make-kind"][data-k="draw"]');await p.click('[data-act="dr-color"][data-c="#3fbf6a"]');await draw(p);await p.click('[data-act="dr-save"]');await p.waitForTimeout(400);
+await p.click('[data-act="bc-make"][data-i="0"]');await p.click('[data-act="bc-make-kind"][data-k="story"]');await p.fill('#bcStory','Then Mara built a tiny boat from the box and sailed it across the big puddle to her friend.');await p.click('[data-act="st-save"]');await p.waitForTimeout(300);
+const multi=await p.evaluate(()=>{const e=S.books[0].log[0];return{arts:e.arts.length,docs:e.arts.filter(id=>window.__db['cove_art/'+id]).length,distinct:new Set(e.arts.map(id=>window.__db['cove_art/'+id].data)).size,stories:e.stories.length,first:e.artId===e.arts[0],bookart:statC('bookart')}});
+ok(multi.arts===2&&multi.docs===2&&multi.distinct===2&&multi.stories===2&&multi.first&&multi.bookart===1,'Make another keeps both drawings and both stories: '+JSON.stringify(multi));
+await p.evaluate(()=>openBookClub('shelf'));await p.waitForTimeout(500);ok(await p.evaluate(()=>document.querySelectorAll('.bc-gitem').length===4&&document.querySelectorAll('.bc-gitem img.ok').length===2),'gallery shows 2 drawings + 2 stories');await shot(p,P+'05b-gallery-multi');
+await p.evaluate(()=>{BC.id=S.books[0].id;BC.view='book';renderBook()});
+// chapter 2 by hand
+await p.click('[data-act="bc-log"]');await p.click('[data-act="bc-mode"][data-m="hand"]');await draw(p,'#hw');await draw(p,'#hw');await p.click('[data-act="bc-send"]');await p.waitForSelector('#bcCoach .coach');
+const e2=await p.evaluate(()=>{const e=S.books[0].log[1];return{ch:e.ch,sum:e.summary,hand:e.hand,hw:!!window.__db['cove_art/'+e.hwId]}});
+ok(e2.ch===2&&e2.sum.startsWith('Mara ran')&&e2.hand&&e2.hw,'handwritten summary transcribed and stored as art doc: '+JSON.stringify(e2));
+await shot(p,P+'05-hand-log');
+await p.waitForTimeout(1500);
+const st=await p.evaluate(()=>{const d=window.__db['cove/state'];const j=JSON.stringify(d);return{bytes:j.length,img:j.includes('data:image'),books:d&&d.books&&d.books.length}});
+ok(st.books===1&&!st.img&&st.bytes<256*1024,'cove/state has books, no images, '+st.bytes+' bytes');
+await p.evaluate(()=>{openBookClub('book')});await p.waitForTimeout(400);await shot(p,P+'06-book-log');
+ok(p.errs.length===0,'no errors '+p.errs.join(' | '));console.log(out.join('\n'));await p.b.close();
