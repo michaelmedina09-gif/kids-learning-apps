@@ -475,6 +475,19 @@ button.ctile:active{transform:translateY(3px);box-shadow:0 2px 0 #9b8cff}
  .ctile{font-size:36px;height:74px}
  .cbc{width:48px;height:66px}
 }
+
+/* compact landscape: keep the whole question + Check button on screen (no scrolling for little hands) */
+@media (orientation:landscape) and (max-height:880px){
+ .qcard{min-height:0;padding:14px 24px;gap:10px}
+ .qwrap{gap:10px}
+ .ans{gap:10px}
+ .prompt{font-size:24px}
+ .numdisp{height:58px;font-size:38px;min-width:170px}
+ .keypad{grid-template-columns:repeat(3,86px);gap:7px}
+ .keypad button{height:52px;font-size:27px;border-radius:14px}
+ .keypad .chk{font-size:22px}
+ .pgrid{font-size:min(34px,calc((100vw - 96px) / (var(--cols,5) * 1.3)),7vh)}
+}
 </style>
 
 <div id="app"></div>
