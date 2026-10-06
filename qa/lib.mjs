@@ -11,7 +11,7 @@ export const shot=(p,n,full=true)=>p.screenshot({path:'/home/claude/cove/qa/shot
 // list visible buttons
 export const btns=p=>p.evaluate(()=>[...document.querySelectorAll('button,[data-act],input,textarea')].filter(e=>e.offsetParent||e.getClientRects().length).map(e=>`${e.tagName}${e.dataset.act?'['+e.dataset.act+']':''}${e.dataset.i!==undefined?'i='+e.dataset.i:''}${e.id?'#'+e.id:''} "${(e.innerText||e.value||e.getAttribute('aria-label')||'').trim().slice(0,40).replace(/\n/g,' ')}"`));
 export const text=p=>p.evaluate(()=>document.body.innerText.slice(0,1500));
-export const SPEECH_MOCK=`window.__spoken=[];(function(){const ss={speaking:false,pending:false,getVoices:()=>[{name:'Samantha',lang:'en-US'}],cancel(){},speak(u){window.__spoken.push(u.text);setTimeout(()=>{u.onstart&&u.onstart();u.onend&&u.onend()},5)},onvoiceschanged:null};Object.defineProperty(window,'speechSynthesis',{value:ss,configurable:true});window.SpeechSynthesisUtterance=function(t){this.text=t}})();`;
+export const SPEECH_MOCK=`window.__NO_AU=1;window.__spoken=[];(function(){const ss={speaking:false,pending:false,getVoices:()=>[{name:'Samantha',lang:'en-US'}],cancel(){},speak(u){window.__spoken.push(u.text);setTimeout(()=>{u.onstart&&u.onstart();u.onend&&u.onend()},5)},onvoiceschanged:null};Object.defineProperty(window,'speechSynthesis',{value:ss,configurable:true});window.SpeechSynthesisUtterance=function(t){this.text=t}})();`;
 // answer current RUN.q with real clicks. right=true/false
 export async function answerQ(p,right){
  const q=await p.evaluate(()=>{const q=RUN.q;return{type:q.type,answer:q.answer,choices:q.choices&&q.choices.map(c=>({ok:c.ok,dis:c.dis})),pre:q.pre}});
